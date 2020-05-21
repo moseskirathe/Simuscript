@@ -5,6 +5,7 @@
     <title>DSL TITLE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script src="sprite.js"></script>
 </head>
 
 <body>
@@ -18,12 +19,13 @@
         ctx = canvas.getContext("2d");
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+        kitty = new Sprite(0,0,width,height,square_size);
         // render X times per second
         // let x = 8;
         // setInterval(draw, 1000 / x);
 
-        load_images_and_draw();
+
+        setInterval(load_images_and_draw, 1000);
     };
 
     // set up
@@ -33,6 +35,9 @@
     let height = 10;
 
     setup_grid(width, height);
+
+    position_x = 0;
+    position_y = 0;
 
     // width, height inputted as squares on a grid
     function setup_grid(width, height) {
@@ -90,14 +95,14 @@
         cat.onerror = function () {
             alert(cat.src + ' failed to load.');
         };
-        cat.src = "cat.png";
+        cat.src = "images/2_sprites/cat.png";
 
         const chicken = new Image();
         chicken.onload = draw;
         chicken.onerror = function () {
             alert(chicken.src + ' failed to load.');
         };
-        chicken.src = "chicken.png";
+        chicken.src = "images/2_sprites/chicken.png";
 
         // todo better way to track this?
         var imgCount = 4;
@@ -109,8 +114,12 @@
             }
 
             draw_all(grass);
-            draw_by_rectangle(chicken, 0, 0, 0, 3);
-            draw_by_coordinates(cat, [[0, 0], [1, 1], [2, 3]]);
+            // draw_by_rectangle(chicken, 0, 0, 0, 3);
+            // draw_by_coordinates(cat, [[0, 0], [1, 1], [2, 3]]);
+            kitty.move();
+            ctx.drawImage(cat, kitty.x*square_size , kitty.y*square_size, square_size, square_size);
+
+
         }
     }
 
