@@ -1,5 +1,7 @@
 class Sprite {
     constructor(x, y, width, height, square) {
+        this.name;
+        this.type;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -7,6 +9,8 @@ class Sprite {
         // direction  0 - up, 1 - bottom, 2 - left, 3 - right
         this.direction = 3;
     }
+
+    // todo add likes / and fears
 
      move() {
         this.direction = Math.floor(Math.random() * 4);

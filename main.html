@@ -9,35 +9,65 @@
 </head>
 
 <body>
-<canvas id="canvas" width="400" height="400"></canvas>
+<canvas id="canvas" width="100" height="400"></canvas>
 
 <script>
+    // set up canvas
     let canvas, ctx;
-
-    window.onload = function () {
-        canvas = document.getElementById("canvas");
-        ctx = canvas.getContext("2d");
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        kitty = new Sprite(0,0,width,height,square_size);
-        // render X times per second
-        // let x = 8;
-        // setInterval(draw, 1000 / x);
-
-
-        setInterval(load_images_and_draw, 1000);
-    };
-
-    // set up
     const square_size = 30;
-    // the parameters for width/height will be obtained from the AST
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+
+    // set canvas background to black
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // todo this info reliant on input from user
     let width = 10;
     let height = 10;
 
+    // set dimensions of grid
     setup_grid(width, height);
 
-    position_x = 0;
-    position_y = 0;
+    // load images
+    let images = ['images/cat.png', 'images/chicken.png', 'images/grass.png', 'images/path.png'];
+    let loadedImages = {};
+
+    let promiseArray = images.map(function (imgurl) {
+        let prom = new Promise(function (resolve, reject) {
+            let img = new Image();
+            img.onload = function () {
+                let name = imgurl.match(/([^\/]+)(?=\.\w+$)/)[0];
+                loadedImages[name] = img;
+                resolve();
+            };
+            img.src = imgurl;
+        });
+        return prom;
+    });
+
+    Promise.all(promiseArray).then(loop);
+
+    // other stuff
+
+    kitty = new Sprite(0, 0, width, height, square_size);
+
+    function loop() {
+        // render X times per second
+        let x = 4;
+        setInterval(draw, 1000 / x);
+    }
+
+    function draw() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        draw_all(loadedImages['grass']);
+        kitty.move();
+        // cat needs to be removed before being rerendered
+        ctx.drawImage(loadedImages['cat'], kitty.x * square_size, kitty.y * square_size, square_size, square_size);
+
+    }
 
     // width, height inputted as squares on a grid
     function setup_grid(width, height) {
@@ -68,59 +98,13 @@
         });
     }
 
-    // todo
-    function draw_anywhere(image, number_of_items) {
+    // todo create image dictionary
+    function create_sprites(name, type) {
+
     }
 
-    // load images
-    function load_images_and_draw() {
-        // terrain
-        const grass = new Image();
-        grass.onload = draw;
-        grass.onerror = function () {
-            alert(grass.src + ' failed to load.');
-        };
-        grass.src = "images/0_terrain/grass.png";
-
-        const path = new Image();
-        path.onload = draw;
-        path.onerror = function () {
-            alert(path.src + ' failed to load.');
-        };
-        path.src = "images/0_terrain/path.png";
-
-        // sprites
-        const cat = new Image();
-        cat.onload = draw;
-        cat.onerror = function () {
-            alert(cat.src + ' failed to load.');
-        };
-        cat.src = "images/2_sprites/cat.png";
-
-        const chicken = new Image();
-        chicken.onload = draw;
-        chicken.onerror = function () {
-            alert(chicken.src + ' failed to load.');
-        };
-        chicken.src = "images/2_sprites/chicken.png";
-
-        // todo better way to track this?
-        var imgCount = 4;
-
-        function draw() {
-            // countdown until all images are loaded
-            if (--imgCount > 0) {
-                return;
-            }
-
-            draw_all(grass);
-            // draw_by_rectangle(chicken, 0, 0, 0, 3);
-            // draw_by_coordinates(cat, [[0, 0], [1, 1], [2, 3]]);
-            kitty.move();
-            ctx.drawImage(cat, kitty.x*square_size , kitty.y*square_size, square_size, square_size);
-
-
-        }
+    // todo
+    function draw_anywhere(image, number_of_items) {
     }
 
 </script>
