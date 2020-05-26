@@ -1,7 +1,11 @@
 class Sprite {
-    constructor(x, y, width, height, square) {
-        this.name;
+    constructor(name, x, y, width, height) {
+        this.name = name;
         this.type;
+        this.likes;
+        this.scared_of;
+        this.drops;
+
         this.x = x;
         this.y = y;
         this.width = width;

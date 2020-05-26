@@ -5,11 +5,24 @@
     <title>DSL TITLE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <script src="sprite.js"></script>
+    <script src="Sprite.js"></script>
+    <script src="GameState.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<canvas id="canvas" width="100" height="400"></canvas>
+<div id="input-form">
+    <form action="">
+        <textarea id="input-area" name="input-area" rows="8" cols="50">Type here...</textarea>
+        <br><br>
+<!--        todo submit won't start loop once everything is connected, also make this submit-->
+        <input type="button" onclick="loop(seconds)" value="Submit">
+        <button type="button"  onclick="render()">Render</button>
+        <br><br>
+    </form>
+</div>
+
+<canvas id="canvas" width="0" height="0"></canvas>
 
 <script>
     // set up canvas
@@ -18,19 +31,33 @@
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
-    // set canvas background to black
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     // todo this info reliant on input from user
-    let width = 10;
-    let height = 10;
+    let width = 20;
+    let height = 30;
 
     // set dimensions of grid
-    setup_grid(width, height);
+    //setup_grid(width, height);
 
     // load images
-    let images = ['images/cat.png', 'images/chicken.png', 'images/grass.png', 'images/path.png'];
+    let images = [
+        'images/cat.png',
+        'images/chicken.png',
+        'images/grass.png',
+        'images/path.png',
+        'images/desert.png',
+        'images/dirt.png',
+        'images/egg.png',
+        'images/fried_egg.png',
+        'images/gold.png',
+        'images/gold_feather.png',
+        'images/ice.png',
+        'images/lava.png',
+        'images/meat.png',
+        'images/potion.png',
+        'images/rock.png',
+        'images/scroll.png',
+        'images/swamp.png'
+    ];
     let loadedImages = {};
 
     let promiseArray = images.map(function (imgurl) {
@@ -46,27 +73,93 @@
         return prom;
     });
 
-    Promise.all(promiseArray).then(loop);
+    Promise.all(promiseArray).then(console.log("Image loaded"));
 
-    // other stuff
+    // seconds of simulation
+    seconds = 10;
 
-    kitty = new Sprite(0, 0, width, height, square_size);
+    // graphics set up
+    // todo this is all done elsewhere, evaluate?
+    game_state = new GameState();
+    game_state.make_grid(10, 10);
+    game_state.draw_terrain_everywhere('grass');
+    game_state.draw_terrain_by_rectangle('path', 0, 0, 3, 3);
 
-    function loop() {
-        // render X times per second
-        let x = 4;
-        setInterval(draw, 1000 / x);
+    // add sprites
+    kitty = new Sprite('cat', 0, 0, width, height);
+    chicken = new Sprite('chicken', 1, 1, width, height);
+
+    game_state.game_grid[kitty.x][kitty.y]["sprite"] = kitty;
+
+
+    function test_game_state() {
+
+    }
+
+
+    function loop(seconds) {
+        console.log(seconds);
+        milliseconds = seconds * 1000;
+
+        // render every 0.25 seconds
+        var intervals = setInterval(draw, 250);
+        setTimeout(function( ) { clearInterval( intervals ); }, milliseconds);
+
     }
 
     function draw() {
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        console.log("Draw");
+        setup_grid(game_state.grid_width, game_state.grid_height);
 
-        draw_all(loadedImages['grass']);
-        kitty.move();
-        // cat needs to be removed before being rerendered
-        ctx.drawImage(loadedImages['cat'], kitty.x * square_size, kitty.y * square_size, square_size, square_size);
+        // render terrain from game state matrix
+        for (let i = 0; i < game_state.grid_height; i ++ ) {
+            for (let j = 0; j < game_state.grid_height; j ++) {
+                terrain_type = game_state.game_grid[i][j]["terrain"];
+                terrain_img = loadedImages[terrain_type];
+                ctx.drawImage(terrain_img, i * square_size, j * square_size, square_size, square_size);
+            }
+        }
 
+        // render sprites from game state matrix
+        for (let i = 0; i < game_state.grid_height; i ++ ) {
+            for (let j = 0; j < game_state.grid_height; j ++) {
+                sprite = null;
+                if (game_state.game_grid[i][j]["sprite"] != undefined) {
+                    sprite = game_state.game_grid[i][j]["sprite"];
+                    sprite.move();
+                    sprite_type = sprite.name;
+                    sprite_img = loadedImages[sprite_type];
+                    ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
+                }
+            }
+        }
+    }
+
+    // render is for seeing the grid so far, without starting the simulation
+    function render() {
+        setup_grid(game_state.grid_width, game_state.grid_height);
+
+        // render terrain from game state matrix
+        for (let i = 0; i < game_state.grid_height; i ++ ) {
+            for (let j = 0; j < game_state.grid_height; j ++) {
+                terrain_type = game_state.game_grid[i][j]["terrain"];
+                terrain_img = loadedImages[terrain_type];
+                ctx.drawImage(terrain_img, i * square_size, j * square_size, square_size, square_size);
+            }
+        }
+
+        // render sprites from game state matrix
+        for (let i = 0; i < game_state.grid_height; i ++ ) {
+            for (let j = 0; j < game_state.grid_height; j ++) {
+                sprite = null;
+                if (game_state.game_grid[i][j]["sprite"] != undefined) {
+                    sprite = game_state.game_grid[i][j]["sprite"];
+                    sprite_type = sprite.name;
+                    sprite_img = loadedImages[sprite_type];
+                    ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
+                }
+            }
+        }
     }
 
     // width, height inputted as squares on a grid
@@ -74,6 +167,8 @@
         // multiply by 10 to convert to pixels
         document.getElementById('canvas').width = width * 30;
         document.getElementById('canvas').height = height * 30;
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     function draw_by_rectangle(image, top_left_x, top_left_y, bottom_right_x, bottom_right_y) {
@@ -98,10 +193,12 @@
         });
     }
 
-    // todo create image dictionary
-    function create_sprites(name, type) {
+    // todo
+    function draw_line(from, to, thickness) {
 
     }
+
+
 
     // todo
     function draw_anywhere(image, number_of_items) {
