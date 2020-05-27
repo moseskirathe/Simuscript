@@ -1,20 +1,24 @@
 class Sprite {
 
-    constructor(type, x, y, width, height) {
+    constructor(name, type, x, y, width, height) {
+        this.name = name;
         this.type = type;
-        this.likes = null;
-        this.scared_of = null;
-        this.drops = null;
-        this.drop_counter = 0;
-        this.moves = false;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+
+        this.likes = null;
+        this.scared_of = null;
+        this.drops = null;
+        this.drop_counter = 0;
+        this.collects = null;
+
         // direction  0 - north, 1 - south, 2 - west, 3 - east
         this.direction = 3;
-        this.eats = null;
-        this.name = null;
+        this.moves = false;
+
+
     }
 
     // todo add likes / and fears

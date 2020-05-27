@@ -90,25 +90,26 @@
     items = [];
 
     // add sprites
-    kitty1 = new Sprite('cat', 1, 10, width, height);
+    kitty1 = new Sprite('doug', 'cat', 1, 10, width, height);
     kitty1.moves = true;
-    kitty2 = new Sprite('cat', 2, 10, width, height);
-    kitty3 = new Sprite('chicken', 3, 10, width, height);
+    kitty1.drops = 'potion';
+    kitty2 = new Sprite('mark', 'cat', 2, 10, width, height);
+    kitty3 = new Sprite('mary', 'chicken', 3, 10, width, height);
     kitty3.drops = 'potion';
     kitty3.moves = true;
-    kitty4 = new Sprite('chicken', 4, 10, width, height);
+    kitty4 = new Sprite('dean', 'chicken', 4, 10, width, height);
     kitty4.moves = true;
     kitty4.drops = 'meat';
-    kitty4.eats = 'potion';
-    kitty4.likes = 'skittles';
-    kitty = new Sprite('cat', 10, 10, width, height);
+    kitty4.collects = 'potion';
+    kitty4.likes = 'mary';
+    kitty = new Sprite('skittles', 'cat', 10, 10, width, height);
     kitty.moves = true;
-    kitty.eats = 'gold_feather';
-    kitty.name = 'skittles'
-    chicken = new Sprite('chicken', 9, 9, width, height);
+    kitty.collects = 'potion';
+    chicken = new Sprite('shelley', 'chicken', 9, 9, width, height);
     chicken.drops = 'gold_feather';
     chicken.moves = true;
     chicken.likes = 'skittles';
+    kitty.collects = 'potion';
 
     // add to GameState sprite list
     game_state.creatures.push(kitty);
@@ -227,7 +228,7 @@
 
             // if the sprite is on an item it collects, remove it
             for (let i = 0; i < items.length; i ++) {
-                if (sprite.x === items[i]["x"] && sprite.y === items[i]["y"] && sprite.eats === items[i]["type"]) {
+                if (sprite.x === items[i]["x"] && sprite.y === items[i]["y"] && sprite.collects === items[i]["type"]) {
                     terrain = game_state.game_grid[sprite.x][sprite.y]["terrain"];
                     terrain_img = loadedImages[terrain];
 
