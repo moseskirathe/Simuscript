@@ -90,12 +90,14 @@
 
     // add sprites
     kitty = new Sprite('cat', 0, 0, width, height);
-    kitty.drops = 'potion';
+    //kitty.drops = 'potion';
     kitty.moves = true;
+    kitty.eats = 'gold_feather';
 
     chicken = new Sprite('chicken', 1, 1, width, height);
     chicken.drops = 'gold_feather';
     chicken.moves = true;
+    //chicken.eats = 'potion';
 
 
     game_state.game_grid[kitty.x][kitty.y]["sprite"] = kitty;
@@ -135,12 +137,13 @@
                     // get sprite from matrix
                     sprite = game_state.game_grid[i][j]["sprite"];
                     sprite.move();
-                    if (sprite.drop_counter > 4) {
+                    if (sprite.drops !== null && sprite.drop_counter > 2) {
                         sprite.drop_counter = 0;
                         item_type = sprite.drops;
                         item_img = loadedImages[item_type];
                         items.push(
                             {
+                                type: item_type,
                                 img: item_img,
                                 x: sprite.x,
                                 y: sprite.y
@@ -156,6 +159,27 @@
                     sprite_type = sprite.name;
                     sprite_img = loadedImages[sprite_type];
                     ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
+
+                    for (let i = 0; i < items.length; i ++) {
+                        if (sprite.x === items[i]["x"] && sprite.y === items[i]["y"] && sprite.eats === items[i]["type"]) {
+                            // rerender terrain
+
+                            terrain = game_state.game_grid[sprite.x][sprite.y]["terrain"];
+                            terrain_img = loadedImages[terrain];
+                            console.log("bingo");
+                            console.log(terrain);
+                            // rerender sprite
+                            items.splice(i, 1);
+                            ctx.drawImage(terrain_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
+                            ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
+
+                        }
+
+                        // img = items[i]["img"];
+                        // x = items[i]["x"];
+                        // y = items[i]["y"];
+                        // ctx.drawImage(items[i]["img"], x * square_size, y * square_size, (square_size/1.5), (square_size/1.5));
+                    }
                 }
             }
         }

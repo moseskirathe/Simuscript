@@ -14,6 +14,7 @@ class Sprite {
         this.height = height;
         // direction  0 - up, 1 - bottom, 2 - left, 3 - right
         this.direction = 3;
+        this.eats = null;
     }
 
     // todo add likes / and fears
