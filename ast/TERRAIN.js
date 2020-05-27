@@ -1,0 +1,32 @@
+var Node = require('../libs/Node.js');
+
+module.exports = class TERRAIN extends Node {
+
+    constructor(t) {
+        super(t);
+        this.topleftx = 0;
+        this.toplefty = 0;
+        this.bottomrightx = 0;
+        this.bottomrighty = 0;
+        this.texture = new TEXTURE(t);
+    }
+
+    parse() {
+        this.tokenizer.getAndCheckNext("set rectangle");
+        this.tokenizer.getAndCheckNext("(");
+        this.topleftx = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext(",");
+        this.toplefty = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext(")");
+
+        this.tokenizer.getAndCheckNext("(");
+        this.bottomrightx = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext(",");
+        this.bottomrighty = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext(")");
+
+        this.tokenizer.getAndCheckNext("to");
+
+        this.texture.parse();
+    }
+}
