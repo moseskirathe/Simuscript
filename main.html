@@ -71,7 +71,7 @@
 
     Promise.all(promiseArray).then(console.log("Image loaded"));
 
-    // todo -- this will all be info obtained from the user input
+    // todo -- below will all be info obtained from the user input
 
     // seconds of simulation
     seconds = 50;
@@ -133,9 +133,10 @@
 
     function draw() {
         console.log("Draw");
+        // render the grid
         setup_grid(game_state.grid_width, game_state.grid_height);
 
-        // render terrain and landmark from game state matrix
+        // render terrain and landmarks from game state matrix
         for (let i = 0; i < game_state.grid_height; i++) {
             for (let j = 0; j < game_state.grid_height; j++) {
                 terrain_type = game_state.game_grid[i][j]["terrain"];
@@ -146,13 +147,13 @@
                 ctx.drawImage(landmark_img, i * square_size, j * square_size, square_size, square_size);
             }
         }
-
+        // iterate through array of sprite objects
         for (let i = 0; i < game_state.number_of_creatures(); i++) {
             sprite = game_state.creatures[i];
-            // no likes no fears
+            // move randomly if it has no likes and no fears
             if (sprite.likes === null && sprite.scared_of === null) {
                 sprite.random_move();
-            // move according to likes
+            // if sprite likes another sprite, move towards it
             } else if (sprite.likes !== null) {
                 console.log(sprite.likes);
                 for (let i = 0; i < game_state.creatures.length; i++) {
@@ -175,7 +176,7 @@
                         }
                     }
                 }
-            // move according to fears
+            // if sprite is scared of another sprite, move away from it
             } else if (this.scared_of !== null) {
                 for (let i = 0; i < game_state.creatures.length; i++) {
                     if (sprite.scared_of === game_state.creatures[i].name) {
@@ -200,7 +201,7 @@
 
             }
 
-            // add the item to the array
+            // if sprite drops items, and its time to drop an item, drop item
             if (sprite.drops !== null && sprite.drop_counter > 2) {
                 sprite.drop_counter = 0;
                 item_type = sprite.drops;
@@ -242,8 +243,6 @@
         }
         console.log("done draw");
     }
-
-    // likes fears by named creature
 
     // render is for seeing the grid so far, without starting the simulation
     function render() {
