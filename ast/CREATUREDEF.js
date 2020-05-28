@@ -2,7 +2,7 @@ import Node from '../libs/Node.js';
 import CREATURENAME from './CREATURENAME.js';
 import CREATURETYPE from  './CREATURETYPE.js';
 import CREATUREATTRIBUTES from './CREATUREATTRIBUTES.js';
-import main from '../ui/main';
+import { creatureTable } from '../ui/main';
 
 export class CREATUREDEF extends Node {
 
@@ -40,7 +40,7 @@ export class CREATUREDEF extends Node {
             attr.evaluate(gameState);
             this.creatureAttributesObj[attr.type] = attr.value;
         });
-        main.creatureTable[this.creaturename] = {
+        creatureTable[this.creaturename] = {
             type: this.creaturetype,
             attributes: this.creatureAttributesObj
         }
