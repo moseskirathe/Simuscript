@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 
-module.exports = class GRID extends Node {
+export default class GRID extends Node {
 
     constructor() {
         super();
@@ -15,5 +15,9 @@ module.exports = class GRID extends Node {
         this.tokenizer.getAndCheckNext(",");
         this.height = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(")");
+    }
+    
+    evaluate(gameState) {
+        gameState.make_grid(this.width, this.height);
     }
 }
