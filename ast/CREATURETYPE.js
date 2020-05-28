@@ -8,26 +8,30 @@ module.exports = class CREATURETYPE extends Node {
     }
 
     parse() {
-        if (this.tokenizer.checkToken() === "chicken") {
-            this.type = "chicken";
-        } else if (this.tokenizer.checkToken() === "cat") {
-            this.type = "cat";
-        } else if (this.tokenizer.checkToken() === "parrot") {
-            this.type = "parrot";
-        } else if (this.tokenizer.checkToken() === "squirrel") {
-            this.type = "squirrel";
-        } else if (this.tokenizer.checkToken() === "duck") {
-            this.type = "duck";
-        } else if (this.tokenizer.checkToken() === "dog") {
-            this.type = "dog";
-        } else if (this.tokenizer.checkToken() === "snail") {
-            this.type = "snail";
-        } else if (this.tokenizer.checkToken() === "tortoise") {
-            this.type = "tortoise";
-        } else if (this.tokenizer.checkToken() === "slime") {
-            this.type = "slime";
+        if (this.tokenizer.checkToken("chicken")) {
+            this.type = this.tokenizer.getAndCheckNext("chicken");
+        } else if (this.tokenizer.checkToken("cat")) {
+            this.type = this.tokenizer.getAndCheckNext("cat");
+        } else if (this.tokenizer.checkToken("parrot")) {
+            this.type = this.tokenizer.getAndCheckNext("parrot");
+        } else if (this.tokenizer.checkToken("squirrel")) {
+            this.type = this.tokenizer.getAndCheckNext("squirrel");
+        } else if (this.tokenizer.checkToken("duck")) {
+            this.type = this.tokenizer.getAndCheckNext("duck");
+        } else if (this.tokenizer.checkToken("dog")) {
+            this.type = this.tokenizer.getAndCheckNext("dog");
+        } else if (this.tokenizer.checkToken("snail")) {
+            this.type = this.tokenizer.getAndCheckNext("snail");
+        } else if (this.tokenizer.checkToken("tortoise")) {
+            this.type = this.tokenizer.getAndCheckNext("tortoise");
+        } else if (this.tokenizer.checkToken("slime")) {
+            this.type = this.tokenizer.getAndCheckNext("slime");
         } else {
-
+            console.error(this.tokenizer.getNext() + " is not a valid CREATURETYPE");
         }
+    }
+
+    evaluate(gameState) {
+        return this.type;
     }
 }

@@ -30,4 +30,9 @@ module.exports = class TERRAIN extends Node {
 
         this.texture.parse();
     }
+
+    evaluate(gameState) {
+        let tex = this.texture;
+        gameState.draw_terrain_by_rectangle(tex, this.topleftx, this.toplefty, this.bottomrightx, this.bottomrighty);
+    }
 }

@@ -77,10 +77,10 @@ function moreTokens(){
     return currentToken<tokens.length;
 }
 */
-var theTokenizer = null;
-var literals;
+let theTokenizer = null;
+let literals;
 
-module.exports = class tokenizer {
+export class tokenizer {
 
     constructor(literal, input) {
         literals = literal;

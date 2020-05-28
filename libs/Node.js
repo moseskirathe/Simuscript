@@ -1,6 +1,6 @@
-var tokenizer = require('./tokenizer.js');
+import tokenizer from './tokenizer.js';
 
-module.exports = class Node {
+export class Node {
     constructor() {
         this.tokenizer = tokenizer.getTokenizer();
     }
