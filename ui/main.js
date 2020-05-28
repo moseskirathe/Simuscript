@@ -1,6 +1,5 @@
 import tokenizer from '../libs/tokenizer.js';
-var GRID = require('../ast/GRID.js');
-var TERRAIN = require('../ast/TERRAIN.js');
+import PROGRAM from "../ast/PROGRAM";
 
 export const creatureTable = {};
 
@@ -18,10 +17,9 @@ function init(){
     // tokenize
     tokenizer.makeTokenizer(literals, testInput);
     let t = tokenizer.getTokenizer();
-    let grid = new GRID(t);
-    grid.parse();
-    let terrain = new TERRAIN(t);
-    terrain.parse();
+    let program = new PROGRAM();
+    program.parse();
+    program.evaluate(new GameState());
     console.log(grid.width);
     console.log(grid.height);
     console.log(texture.topleftx);

@@ -3,6 +3,7 @@ import TERRAIN from "./TERRAIN"
 
 import Node from '../libs/Node.js';
 import {CREATUREDEF} from "./CREATUREDEF";
+import CREATUREPOS from "./CREATUREPOS";
 
 export default class PROGRAM extends Node {
 
