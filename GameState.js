@@ -2,6 +2,7 @@ class GameState {
     constructor() {
         this.grid_width = 0;
         this.grid_height = 0;
+        this.seconds = 0;
         this.creatures = [];
         this.game_grid = [];
     }
