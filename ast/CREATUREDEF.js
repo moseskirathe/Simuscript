@@ -1,15 +1,17 @@
-var Node = require('../libs/Node.js');
-var CREATURENAME = require('./CREATURENAME.js');
-var CREATURETYPE = require('./CREATURETYPE.js');
-var CREATUREATTRIBUTES = require('./CREATUREATTRIBUTES.js');
+import Node from '../libs/Node.js';
+import CREATURENAME from './CREATURENAME.js';
+import CREATURETYPE from  './CREATURETYPE.js';
+import CREATUREATTRIBUTES from './CREATUREATTRIBUTES.js';
+import { creatureTable } from '../ui/main.js';
 
-module.exports = class CREATUREDEF extends Node {
+export class CREATUREDEF extends Node {
 
     constructor() {
         super();
         this.creaturename = null;
         this.creaturetype = null;
-        this.creatureattributes = [];
+        this.creatureattributes = null;
+        this.attributes = {};
     }
 
     parse() {
@@ -19,10 +21,20 @@ module.exports = class CREATUREDEF extends Node {
         this.tokenizer.getAndCheckNext("as");
         this.creaturetype = new CREATURETYPE();
         this.creaturetype.parse();
-        while (this.tokenizer.checkNext() === "that") {
-            this.tokenizer.getAndCheckNext("that");
-            let creatureattributes = new CREATUREATTRIBUTES();
-            this.creatureattributes.push(creatureattributes);
+        if (this.tokenizer.checkNext() === "that") {
+            let creatureAttributes = new CREATUREATTRIBUTES();
+            creatureAttributes.parse();
+            this.creatureattributes = creatureAttributes;
+        }
+    }
+
+    evaluate(gameState) {
+        let attributes = this.creatureattributes.evaluate(gameState);
+        let name = this.creaturename.evaluate();
+        let type = this.creaturetype.evaluate();
+        creatureTable[name] = {
+            type: type,
+            attributes: attributes
         }
     }
 }

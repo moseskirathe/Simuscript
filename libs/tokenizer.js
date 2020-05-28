@@ -77,14 +77,15 @@ function moreTokens(){
     return currentToken<tokens.length;
 }
 */
-var theTokenizer = null;
-var literals;
+let theTokenizer = null;
+let literals;
 
-module.exports = class tokenizer {
+export default class tokenizer {
 
     constructor(literal, input) {
         literals = literal;
         this.program = input;
+        this.theTokenizer = null;
         this.currentToken = 0;
         this.tokens = [];
         this.tokenize();
@@ -99,7 +100,8 @@ module.exports = class tokenizer {
         //2. Replace all constant literals with _<literal>_
         literals.forEach(function(s) {
             console.log(s);
-            tokenizedProgram = tokenizedProgram.replace(s,"_"+s+"_");
+            //let regex = new RegExp(s, 'g')
+            tokenizedProgram = tokenizedProgram.split(s).join("_"+s.trim()+"_");
             console.log(tokenizedProgram);
         });
         //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
@@ -143,12 +145,12 @@ module.exports = class tokenizer {
 
     checkToken(regexp) {
         let s = this.checkNext();
-        return (s == regexp);
+        return (s === regexp);
     }
 
     getAndCheckNext(regexp) {
         let s = this.getNext();
-        if (!(s == regexp)) {
+        if (!(s === regexp)) {
             console.log("Unexpected next token for Parsing! Expected something matching: " + regexp + " but got: " + s);
         }
         return s;

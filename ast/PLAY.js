@@ -1,5 +1,6 @@
-var Node = require('../libs/Node.js');
-module.exports = class Play extends Node {
+import Node from '../libs/Node.js';
+
+export default class PLAY extends Node {
 
     constructor() {
         super();
@@ -9,6 +10,10 @@ module.exports = class Play extends Node {
     parse() {
         this.tokenizer.getAndCheckNext("play for");
         this.duration = this.tokenizer.getNext();
-        this.tokenizer.getAndCheckNext("turns");
+        this.tokenizer.getAndCheckNext("seconds");
+    }
+
+    evaluate(gameState) {
+        gameState.setSeconds(this.duration);
     }
 }

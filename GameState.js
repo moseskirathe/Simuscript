@@ -12,7 +12,7 @@ class GameState {
     }
 
     add_creature(creature) {
-        this.creatures.add(creature);
+        this.creatures.push(creature);
     }
 
 
@@ -23,9 +23,9 @@ class GameState {
         this.grid_height = height;
 
         // create the game matrix of layer objects
-        for (let i = 0; i < this.grid_height; i++) {
+        for (let i = 0; i < this.grid_width; i++) {
             this.game_grid[i] = []
-            for (let j = 0; j < this.grid_width; j++) {
+            for (let j = 0; j < this.grid_height; j++) {
                 this.game_grid[i][j] = {
                     terrain: 'transparent',
                     landmark: 'transparent'
@@ -36,8 +36,8 @@ class GameState {
 
     // put terrain everywhere
     draw_terrain_everywhere(terrain) {
-        for (let x = 0; x < this.grid_height; x++) {
-            for (let y = 0; y < this.grid_width; y++) {
+        for (let x = 0; x < this.grid_width; x++) {
+            for (let y = 0; y < this.grid_height; y++) {
                 this.game_grid[x][y]["terrain"] = terrain;
             }
         }
@@ -62,8 +62,8 @@ class GameState {
 
     // put landmark everywhere
     draw_landmark_everywhere(landmark) {
-        for (let x = 0; x < this.grid_height; x++) {
-            for (let y = 0; y < this.grid_width; y++) {
+        for (let x = 0; x < this.grid_width; x++) {
+            for (let y = 0; y < this.grid_height; y++) {
                 this.game_grid[x][y]["landmark"] = landmark;
             }
         }
@@ -84,5 +84,9 @@ class GameState {
                 this.game_grid[x][y]["landmark"] = landmark;
             }
         }
+    }
+
+    setSeconds(seconds) {
+        this.seconds = seconds;
     }
 }

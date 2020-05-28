@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 
-module.exports = class CREATURENAME extends Node {
+export default class CREATURENAME extends Node {
 
     constructor() {
         super();
@@ -9,5 +9,9 @@ module.exports = class CREATURENAME extends Node {
 
     parse() {
         this.name = this.tokenizer.getNext();
+    }
+
+    evaluate(gameState) {
+        return this.name;
     }
 }

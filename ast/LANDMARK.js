@@ -1,16 +1,16 @@
 import Node from '../libs/Node.js';
-export default class Item extends Node {
+export default class LANDMARK extends Node {
 
     constructor() {
         super();
-        this.valid = ["feathers" , "gold" , "meat" , "egg" , "weapon" , "potion"]
         this.name = "";
+        this.valid = ["barrel", "box", "chest", "boot", "book"];
     }
 
     parse() {
         this.name = this.tokenizer.getNext();
         if (!this.valid.includes(this.name)) {
-            throw "Invalid  item";
+            throw "Invalid object";
         }
     }
 

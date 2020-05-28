@@ -1,7 +1,7 @@
-var Node = require('../libs/Node.js');
-var TEXTURE = require('./TEXTURE.js');
+import Node from '../libs/Node.js';
+import TEXTURE from './TEXTURE.js';
 
-module.exports = class TERRAIN extends Node {
+export default class TERRAIN extends Node {
 
     constructor() {
         super();
@@ -26,8 +26,13 @@ module.exports = class TERRAIN extends Node {
         this.bottomrighty = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(")");
 
-        this.tokenizer.getAndCheckNext("to");
+        this.tokenizer.getAndCheckNext("as");
 
         this.texture.parse();
+    }
+
+    evaluate(gameState) {
+        let tex = this.texture.evaluate();
+        gameState.draw_terrain_by_rectangle(tex, this.topleftx, this.toplefty, this.bottomrightx, this.bottomrighty);
     }
 }

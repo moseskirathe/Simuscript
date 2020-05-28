@@ -16,15 +16,24 @@
         <textarea id="input-area" name="input-area" rows="8" cols="50">Type here...</textarea>
         <br><br>
         <!--todo -- when project completed, submit button will just send user input to be processed and from there simulation is called-->
-        <input type="button" onclick="start_simulation(game_state.seconds)" value="Submit">
-        <button type="button" onclick="render()">Render</button>
+        <input type="button" id="submit" value="Submit">
+        <button type="button" id="render">Render</button>
         <br><br>
     </form>
 </div>
 
 <canvas id="canvas" width="0" height="0"></canvas>
 
-<script>
+<script type="module">
+
+    import init from "./ui/main.js"
+
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log("hello");
+        document.getElementById("submit").addEventListener("click", () => start_simulation(game_state.seconds), false);
+        document.getElementById("render").addEventListener("click", () => render(), false);
+    });
+
     // set up canvas constants
     let canvas, ctx;
     const square_size = 30;
@@ -71,10 +80,13 @@
 
     Promise.all(promiseArray).then(console.log("Image loaded"));
 
+    let items = [];
+
     // todo -- below will all be info obtained from the user input
 
+    /*
     // graphics set up
-    game_state = new GameState();
+    let game_state = new GameState();
     // seconds of simulation
     game_state.seconds = 10;
     game_state.make_grid(20, 20);
@@ -89,6 +101,7 @@
     items = [];
 
     // add sprites
+
     kitty1 = new Sprite('doug', 'cat', 1, 10, width, height);
     kitty1.moves = true;
     kitty1.drops = 'potion';
@@ -111,6 +124,7 @@
     kitty.collects = 'potion';
 
     // add to GameState sprite list
+
     game_state.creatures.push(kitty);
     game_state.creatures.push(chicken);
     game_state.creatures.push(kitty1);
@@ -118,19 +132,23 @@
     game_state.creatures.push(kitty3);
     game_state.creatures.push(kitty4);
 
-    function start_simulation(seconds) {
+     */
+
+    function start_simulation(seconds, game_state) {
         console.log(seconds);
-        milliseconds = seconds * 1000;
+        let milliseconds = seconds * 1000;
 
         // render every 0.25 seconds
-        var intervals = setInterval(draw, 250);
+        let intervals = setInterval(() => {
+            draw(game_state);
+        }, 250);
         setTimeout(function () {
             clearInterval(intervals);
         }, milliseconds);
 
     }
 
-    function draw() {
+    function draw(game_state) {
         console.log("Draw");
         // render the grid
         setup_grid(game_state.grid_width, game_state.grid_height);
@@ -138,17 +156,17 @@
         // render terrain and landmarks from game state matrix
         for (let i = 0; i < game_state.grid_height; i++) {
             for (let j = 0; j < game_state.grid_height; j++) {
-                terrain_type = game_state.game_grid[i][j]["terrain"];
-                terrain_img = loadedImages[terrain_type];
+                let terrain_type = game_state.game_grid[i][j]["terrain"];
+                let terrain_img = loadedImages[terrain_type];
                 ctx.drawImage(terrain_img, i * square_size, j * square_size, square_size, square_size);
-                landmark_type = game_state.game_grid[i][j]["landmark"];
-                landmark_img = loadedImages[landmark_type];
+                let landmark_type = game_state.game_grid[i][j]["landmark"];
+                let landmark_img = loadedImages[landmark_type];
                 ctx.drawImage(landmark_img, i * square_size, j * square_size, square_size, square_size);
             }
         }
         // iterate through array of sprite objects
         for (let i = 0; i < game_state.number_of_creatures(); i++) {
-            sprite = game_state.creatures[i];
+            let sprite = game_state.creatures[i];
             // move randomly if it has no likes and no fears
             if (sprite.likes === null && sprite.scared_of === null) {
                 sprite.random_move();
@@ -157,8 +175,8 @@
                 console.log(sprite.likes);
                 for (let i = 0; i < game_state.creatures.length; i++) {
                     if (sprite.likes === game_state.creatures[i].name) {
-                        x_dif = sprite.x - game_state.creatures[i].x;
-                        y_dif = sprite.y - game_state.creatures[i].y;
+                        let x_dif = sprite.x - game_state.creatures[i].x;
+                        let y_dif = sprite.y - game_state.creatures[i].y;
                         if (Math.abs(x_dif) > Math.abs(y_dif)) {
                             if (x_dif > 0) {
                                 // go negative direction x - west
@@ -179,8 +197,8 @@
             } else if (this.scared_of !== null) {
                 for (let i = 0; i < game_state.creatures.length; i++) {
                     if (sprite.scared_of === game_state.creatures[i].name) {
-                        x_dif = sprite.x - game_state.creatures[i].x;
-                        y_dif = sprite.y - game_state.creatures[i].y;
+                        let x_dif = sprite.x - game_state.creatures[i].x;
+                        let y_dif = sprite.y - game_state.creatures[i].y;
                         if (Math.abs(x_dif) > Math.abs(y_dif)) {
                             if (x_dif > 0) {
                                 // go negative direction x - west
@@ -203,8 +221,9 @@
             // if sprite drops items, and its time to drop an item, drop item
             if (sprite.drops !== null && sprite.drop_counter > 2) {
                 sprite.drop_counter = 0;
-                item_type = sprite.drops;
-                item_img = loadedImages[item_type];
+                let item_type = sprite.drops;
+                console.log(item_type);
+                let item_img = loadedImages[item_type];
                 items.push({
                     type: item_type,
                     img: item_img,
@@ -215,22 +234,23 @@
 
             // render the item
             for (let i = 0; i < items.length; i ++) {
-                img = items[i]["img"];
-                x = items[i]["x"];
-                y = items[i]["y"];
+                let img = items[i]["img"];
+                let x = items[i]["x"];
+                let y = items[i]["y"];
+                console.log(items[i]["img"]);
                 ctx.drawImage(items[i]["img"], x * square_size, y * square_size, (square_size/1.5), (square_size/1.5));
             }
 
             // render the sprite
-            sprite_type = sprite.type;
-            sprite_img = loadedImages[sprite_type];
+            let sprite_type = sprite.type;
+            let sprite_img = loadedImages[sprite_type];
             ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
 
             // if the sprite is on an item it collects, remove it
             for (let i = 0; i < items.length; i ++) {
                 if (sprite.x === items[i]["x"] && sprite.y === items[i]["y"] && sprite.collects === items[i]["type"]) {
-                    terrain = game_state.game_grid[sprite.x][sprite.y]["terrain"];
-                    terrain_img = loadedImages[terrain];
+                    let terrain = game_state.game_grid[sprite.x][sprite.y]["terrain"];
+                    let terrain_img = loadedImages[terrain];
 
                     console.log(terrain);
                     // rerender sprite
@@ -245,28 +265,30 @@
 
     // render is for seeing the grid so far, without starting the simulation
     function render() {
+        let game_state = init(document.getElementById("input-area").value);
         setup_grid(game_state.grid_width, game_state.grid_height);
 
         // render terrain from game state matrix
         for (let i = 0; i < game_state.grid_height; i++) {
             for (let j = 0; j < game_state.grid_height; j++) {
-                terrain_type = game_state.game_grid[i][j]["terrain"];
-                terrain_img = loadedImages[terrain_type];
+                let terrain_type = game_state.game_grid[i][j]["terrain"];
+                let terrain_img = loadedImages[terrain_type];
                 ctx.drawImage(terrain_img, i * square_size, j * square_size, square_size, square_size);
 
-                landmark_type = game_state.game_grid[i][j]["landmark"];
-                landmark_img = loadedImages[landmark_type];
+                let landmark_type = game_state.game_grid[i][j]["landmark"];
+                let landmark_img = loadedImages[landmark_type];
                 ctx.drawImage(landmark_img, i * square_size, j * square_size, square_size, square_size);
             }
         }
 
         // render sprites from game state matrix
         for (let i = 0; i < game_state.number_of_creatures(); i++) {
-            sprite = game_state.creatures[i];
-            sprite_type = sprite.type;
-            sprite_img = loadedImages[sprite_type];
+            let sprite = game_state.creatures[i];
+            let sprite_type = sprite.type;
+            let sprite_img = loadedImages[sprite_type];
             ctx.drawImage(sprite_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
         }
+        start_simulation(game_state.seconds, game_state);
     }
 
     // width, height inputted as squares on a grid
