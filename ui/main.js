@@ -1,4 +1,4 @@
-var tokenizer = require('../libs/tokenizer.js');
+import tokenizer from '../libs/tokenizer.js';
 var GRID = require('../ast/GRID.js');
 var TERRAIN = require('../ast/TERRAIN.js');
 
@@ -7,7 +7,7 @@ export const creatureTable = {};
 function init(){
 
     // initialize tokenizer
-    let literals = ["set grid size to be","set rectangle","draw","from",
+    let literals = ["set grid size to be","set rectangle","draw from",
                     "using","with","waviness","thickness","define","as","that","place",
                     "anywhere","times","play for","turns", "(", ")", ","];
 

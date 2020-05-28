@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 
-module.exports = class CREATURETYPE extends Node {
+export default class CREATURETYPE extends Node {
 
     constructor() {
         super();

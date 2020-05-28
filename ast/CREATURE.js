@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
-var CREATUREDEF = require('./CREATUREDEF.js');
-var CREATUREPOS = require('./CREATUREPOS.js');
+import Node from '../libs/Node.js';
+import CREATUREDEF from './CREATUREDEF.js';
+import CREATUREPOS from './CREATUREPOS.js';
 
 module.exports = class CREATURE extends Node {
 

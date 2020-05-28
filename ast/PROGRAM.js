@@ -1,35 +1,45 @@
-var Node = require('../libs/Node.js');
+import GRID from "./GRID";
+import TERRAIN from "./TERRAIN"
 
-export class PROGRAM extends Node {
+import Node from '../libs/Node.js';
+import {CREATUREDEF} from "./CREATUREDEF";
+
+export default class PROGRAM extends Node {
 
     constructor() {
         super();
-        this.type = "";
-        this.creatureTable = {};
+        this.grid = null;
+        this.terrain = [];
+        this.creatureDefs = {};
+        this.creatures = {};
     }
 
     parse() {
-        if (this.tokenizer.checkToken("chicken")) {
-            this.type = this.tokenizer.getAndCheckNext("chicken");
-        } else if (this.tokenizer.checkToken("cat")) {
-            this.type = this.tokenizer.getAndCheckNext("cat");
-        } else if (this.tokenizer.checkToken("parrot")) {
-            this.type = this.tokenizer.getAndCheckNext("parrot");
-        } else if (this.tokenizer.checkToken("squirrel")) {
-            this.type = this.tokenizer.getAndCheckNext("squirrel");
-        } else if (this.tokenizer.checkToken("duck")) {
-            this.type = this.tokenizer.getAndCheckNext("duck");
-        } else if (this.tokenizer.checkToken("dog")) {
-            this.type = this.tokenizer.getAndCheckNext("dog");
-        } else if (this.tokenizer.checkToken("snail")) {
-            this.type = this.tokenizer.getAndCheckNext("snail");
-        } else if (this.tokenizer.checkToken("tortoise")) {
-            this.type = this.tokenizer.getAndCheckNext("tortoise");
-        } else if (this.tokenizer.checkToken("slime")) {
-            this.type = this.tokenizer.getAndCheckNext("slime");
-        } else {
-            console.error(this.tokenizer.getNext() + " is not a valid CREATURETYPE");
+        this.grid = new GRID();
+        this.grid.parse();
+        this.grid = new GRID();
+        while (this.tokenizer.checkToken("set rectangle")) {
+            let terrain = new TERRAIN();
+            terrain.parse();
+            this.terrain.push(terrain);
         }
+        while (this.tokenizer.checkToken("draw from")) {
+            let terrain = new TERRAIN();
+            terrain.parse();
+            this.terrain.push(terrain);
+        }
+        while (this.tokenizer.checkToken("define")) {
+            let creatureDef = new CREATUREDEF();
+            creatureDef.parse();
+            this.creatureDefs.push(creatureDef);
+        }
+        while (this.tokenizer.checkToken("place")) {
+            let creature = new CREATUREPOS();
+            creature.parse();
+            this.creatures.push(creature);
+        }
+
+        this.grid.parse();
     }
 
     evaluate(gameState) {

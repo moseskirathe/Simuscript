@@ -1,7 +1,7 @@
-var Node = require('../libs/Node.js');
-var TEXTURE = require('./TEXTURE.js');
+import Node from '../libs/Node.js';
+import TEXTURE from './TEXTURE.js';
 
-module.exports = class TERRAIN extends Node {
+export default class TERRAIN extends Node {
 
     constructor() {
         super();

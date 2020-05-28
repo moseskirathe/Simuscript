@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 
-module.exports = class GRID extends Node {
+export default class GRID extends Node {
 
     constructor() {
         super();

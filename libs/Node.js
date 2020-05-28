@@ -1,6 +1,6 @@
 import tokenizer from './tokenizer.js';
 
-export class Node {
+export default class Node {
     constructor() {
         this.tokenizer = tokenizer.getTokenizer();
     }

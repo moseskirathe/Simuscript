@@ -80,11 +80,12 @@ function moreTokens(){
 let theTokenizer = null;
 let literals;
 
-export class tokenizer {
+export default class tokenizer {
 
     constructor(literal, input) {
         literals = literal;
         this.program = input;
+        this.theTokenizer = null;
         this.currentToken = 0;
         this.tokens = [];
         this.tokenize();
