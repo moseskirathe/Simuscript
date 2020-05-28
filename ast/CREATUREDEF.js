@@ -27,7 +27,7 @@ export class CREATUREDEF extends Node {
         this.tokenizer.getAndCheckNext("as");
         this.creaturetype = new CREATURETYPE();
         this.creaturetype.parse();
-        while (this.tokenizer.checkToken("that")) {
+        while (this.tokenizer.checkNext() === "that") {
             this.tokenizer.getAndCheckNext("that");
             let creatureattribute = new CREATUREATTRIBUTES();
             creatureattribute.parse();
