@@ -14,7 +14,7 @@ module.exports = class Item extends Node {
             this.tokenizer.getAndCheckNext("and");
             this.name = this.tokenizer.getNext();
         } else {
-            // Throw exception, invalid token
+            throw "Invalid use of item";
         }
     }
 }
