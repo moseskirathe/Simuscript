@@ -1,4 +1,5 @@
 var Node = require('../libs/Node.js');
+var TEXTURE = require('./TEXTURE.js');
 
 module.exports = class TERRAIN extends Node {
 
@@ -8,7 +9,7 @@ module.exports = class TERRAIN extends Node {
         this.toplefty = 0;
         this.bottomrightx = 0;
         this.bottomrighty = 0;
-        this.texture = new TEXTURE(t);
+        this.texture = new TEXTURE();
     }
 
     parse() {
