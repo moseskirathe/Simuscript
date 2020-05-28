@@ -2,6 +2,7 @@ var Node = require('../libs/Node.js');
 module.exports = class Play extends Node {
 
     constructor() {
+        super();
         this.duration = 0;
     }
 

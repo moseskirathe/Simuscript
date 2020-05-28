@@ -4,6 +4,7 @@ var TEXTURE = require('./TEXTURE.js');
 module.exports = class Path extends Node {
 
     constructor() {
+        super();
         this.topLeftX = 0;
         this.topLeftY = 0;
         this.bottomRightX = 0;

@@ -2,6 +2,7 @@ var Node = require('../libs/Node.js');
 module.exports = class Item extends Node {
 
     constructor() {
+        super();
         this.name = "";
     }
 
