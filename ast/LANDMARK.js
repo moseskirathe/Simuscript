@@ -4,12 +4,12 @@ export default class LANDMARK extends Node {
     constructor() {
         super();
         this.name = "";
-        this.items = ["barrel", "box", "chest", "boot", "book"];
+        this.valid = ["barrel", "box", "chest", "boot", "book"];
     }
 
     parse() {
         this.name = this.tokenizer.getNext();
-        if (!this.items.contains(this.name)) {
+        if (!this.valid.contains(this.name)) {
             throw "Invalid object";
         }
     }

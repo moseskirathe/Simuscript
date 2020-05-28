@@ -10,4 +10,8 @@ module.exports = class CREATURENAME extends Node {
     parse() {
         this.name = this.tokenizer.getNext();
     }
+
+    evaluate(gameState) {
+        return this.name;
+    }
 }

@@ -85,4 +85,8 @@ class GameState {
             }
         }
     }
+
+    setSeconds(seconds) {
+        this.seconds = seconds;
+    }
 }

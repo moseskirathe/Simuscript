@@ -12,4 +12,8 @@ export default class PLAY extends Node {
         this.duration = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext("turns");
     }
+
+    evaluate(gameState) {
+        gameState.setSeconds(this.duration);
+    }
 }

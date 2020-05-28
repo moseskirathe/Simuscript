@@ -10,14 +10,8 @@ export class CREATUREDEF extends Node {
         super();
         this.creaturename = null;
         this.creaturetype = null;
-        this.creatureattributes = [];
-        this.creatureAttributesObj = {
-            moves: false,
-            drops: null,
-            likes: null,
-            scared_of: null,
-            collects: null,
-        };
+        this.creatureattributes = null;
+        this.attributes = {};
     }
 
     parse() {
@@ -27,22 +21,20 @@ export class CREATUREDEF extends Node {
         this.tokenizer.getAndCheckNext("as");
         this.creaturetype = new CREATURETYPE();
         this.creaturetype.parse();
-        while (this.tokenizer.checkNext() === "that") {
-            this.tokenizer.getAndCheckNext("that");
-            let creatureattribute = new CREATUREATTRIBUTES();
-            creatureattribute.parse();
-            this.creatureattributes.push(creatureattribute);
+        if (this.tokenizer.checkNext() === "that") {
+            let creatureAttributes = new CREATUREATTRIBUTES();
+            creatureAttributes.parse();
+            this.creatureattributes = creatureAttributes;
         }
     }
 
     evaluate(gameState) {
-        this.creatureattributes.forEach(attr => {
-            attr.evaluate(gameState);
-            this.creatureAttributesObj[attr.type] = attr.value;
-        });
-        creatureTable[this.creaturename] = {
-            type: this.creaturetype,
-            attributes: this.creatureAttributesObj
+        let attributes = this.creatureattributes.evaluate(gameState);
+        let name = this.creaturename.evaluate();
+        let type = this.creaturetype.evaluate();
+        creatureTable[name] = {
+            type: type,
+            attributes: attributes
         }
     }
 }

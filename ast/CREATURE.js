@@ -6,16 +6,27 @@ module.exports = class CREATURE extends Node {
 
     constructor() {
         super();
-        this.creaturedef = null;
-        this.creaturepos = null;
+        this.creaturedef = [];
+        this.creaturepos = [];
     }
 
     parse() {
-        this.creaturedef = new CREATUREDEF();
-        this.creaturedef.parse();
-        if (this.tokenizer.checkToken("place")) {
+        while (this.tokenizer.checkToken("define")) {
+            this.creaturedef = new CREATUREDEF();
+            this.creaturedef.parse();
+        }
+        while (this.tokenizer.checkToken("place")) {
             this.creaturepos = new CREATUREPOS();
             this.creaturepos.parse();
         }
+    }
+
+    evaluate() {
+        this.creaturedef.forEach(def => {
+            def.evaluate();
+        })
+        this.creaturepos.forEach(pos => {
+            pos.evaluate();
+        })
     }
 }

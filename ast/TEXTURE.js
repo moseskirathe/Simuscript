@@ -1,6 +1,6 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 
-module.exports = class TEXTURE extends Node {
+export default class TEXTURE extends Node {
 
     constructor() {
         super();
