@@ -16,4 +16,8 @@ export default class GRID extends Node {
         this.height = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(")");
     }
+    
+    evaluate(gameState) {
+        gameState.make_grid(this.width, this.height);
+    }
 }
