@@ -8,26 +8,27 @@ module.exports = class CREATURETYPE extends Node {
     }
 
     parse() {
-        if (this.tokenizer.checkToken() === "chicken") {
+        if (this.tokenizer.checkNext() === "chicken") {
             this.type = "chicken";
-        } else if (this.tokenizer.checkToken() === "cat") {
+        } else if (this.tokenizer.checkNext() === "cat") {
             this.type = "cat";
-        } else if (this.tokenizer.checkToken() === "parrot") {
+        } else if (this.tokenizer.checkNext() === "parrot") {
             this.type = "parrot";
-        } else if (this.tokenizer.checkToken() === "squirrel") {
+        } else if (this.tokenizer.checkNext() === "squirrel") {
             this.type = "squirrel";
-        } else if (this.tokenizer.checkToken() === "duck") {
+        } else if (this.tokenizer.checkNext() === "duck") {
             this.type = "duck";
-        } else if (this.tokenizer.checkToken() === "dog") {
+        } else if (this.tokenizer.checkNext() === "dog") {
             this.type = "dog";
-        } else if (this.tokenizer.checkToken() === "snail") {
+        } else if (this.tokenizer.checkNext() === "snail") {
             this.type = "snail";
-        } else if (this.tokenizer.checkToken() === "tortoise") {
+        } else if (this.tokenizer.checkNext() === "tortoise") {
             this.type = "tortoise";
-        } else if (this.tokenizer.checkToken() === "slime") {
+        } else if (this.tokenizer.checkNext() === "slime") {
             this.type = "slime";
         } else {
-
+            throw "ERROR: Unidentified creature type. Please use one of the following types: chicken, cat, parrot, " +
+            "squirrel, duck, dog, snail, tortoise or slime";
         }
     }
 }
