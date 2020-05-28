@@ -2,8 +2,8 @@ var Node = require('../libs/Node.js');
 
 module.exports = class TEXTURE extends Node {
 
-    constructor(t) {
-        super(t);
+    constructor() {
+        super();
         this.type = "";
     }
 

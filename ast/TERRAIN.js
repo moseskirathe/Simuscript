@@ -2,8 +2,8 @@ var Node = require('../libs/Node.js');
 
 module.exports = class TERRAIN extends Node {
 
-    constructor(t) {
-        super(t);
+    constructor() {
+        super();
         this.topleftx = 0;
         this.toplefty = 0;
         this.bottomrightx = 0;
