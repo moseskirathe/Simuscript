@@ -77,10 +77,13 @@ function moreTokens(){
     return currentToken<tokens.length;
 }
 */
+var theTokenizer = null;
+var literals;
 
 module.exports = class tokenizer {
-    constructor(literals, input) {
-        this.programLiterals = literals;
+
+    constructor(literal, input) {
+        literals = literal;
         this.program = input;
         this.currentToken = 0;
         this.tokens = [];
@@ -94,7 +97,7 @@ module.exports = class tokenizer {
         let tokenizedProgram = this.program.replace("\n","");
         console.log(tokenizedProgram);
         //2. Replace all constant literals with _<literal>_
-        this.programLiterals.forEach(function(s) {
+        literals.forEach(function(s) {
             console.log(s);
             tokenizedProgram = tokenizedProgram.replace(s,"_"+s+"_");
             console.log(tokenizedProgram);
@@ -106,12 +109,14 @@ module.exports = class tokenizer {
         if(tokenizedProgram.length>0 && tokenizedProgram[0] == "_"){
             tokenizedProgram = tokenizedProgram.substring(1);
         }
-        this.tokens = tokenizedProgram.split("_");
-        console.log(this.tokens);
+        let tokens = tokenizedProgram.split("_");
         //5. Trim whitespace around tokens
-        for(let i = 0; i < this.tokens.length; i++){
-            this.tokens[i] = this.tokens[i].trim();
+        for(let i = 0; i < tokens.length; i++){
+            let t = tokens[i].trim();
+            if (t.length > 0)
+                this.tokens.push(t);
         }
+        console.log(this.tokens);
         console.log("Done tokenizing");
     }
 
@@ -151,6 +156,16 @@ module.exports = class tokenizer {
 
     moreTokens() {
         return this.currentToken < this.tokens.length;
+    }
+
+    static makeTokenizer(literals, input) {
+        if (theTokenizer === null) {
+            theTokenizer = new tokenizer(literals, input);
+        }
+    }
+
+    static getTokenizer() {
+        return theTokenizer;
     }
 }
 
