@@ -23,7 +23,7 @@ module.exports = class TEXTURE extends Node {
         } else if (this.tokenizer.checkToken() === "water") {
             this.type = "water";
         } else {
-
+            throw "ERROR: Unidentified texture type. Please use one of the following textures: grass, swamp, tree, hill, dirt or water";
         }
     }
 }

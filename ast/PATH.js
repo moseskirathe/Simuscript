@@ -17,7 +17,6 @@ module.exports = class Path extends Node {
         this.tokenizer.getAndCheckNext("using");
         this.texture = new TEXTURE();
         this.texture.parse();
-
         // add checks for waviness and thickness once implemented
     }
 }
