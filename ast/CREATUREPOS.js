@@ -1,5 +1,5 @@
 import Node from '../libs/Node.js';
-import {creatureTable} from "../ui/main";
+import {creatureTable} from "../ui/main.js";
 
 export default class CREATUREPOS extends Node {
 
@@ -15,24 +15,24 @@ export default class CREATUREPOS extends Node {
         this.name = this.tokenizer.getNext();
         if (this.tokenizer.checkToken("at")) {
             this.tokenizer.getAndCheckNext("at");
-            if (this.tokenizer.checkToken("\\(")) {
-                this.tokenizer.getAndCheckNext("\\(");
+            if (this.tokenizer.checkToken("(")) {
+                this.tokenizer.getAndCheckNext("(");
                 let x = this.tokenizer.getNext();
                 this.tokenizer.getAndCheckNext(",");
                 let y = this.tokenizer.getNext();
                 this.coordinates.push([x, y]);
-                this.tokenizer.getAndCheckNext("\\)");
-            } else if (this.tokenizer.checkToken("\\[")) {
-                this.tokenizer.getAndCheckNext("\\[");
-                while (!this.tokenizer.checkToken("\\]")) {
-                    this.tokenizer.getAndCheckNext("\\(");
+                this.tokenizer.getAndCheckNext(")");
+            } else if (this.tokenizer.checkToken("[")) {
+                this.tokenizer.getAndCheckNext("[");
+                while (!this.tokenizer.checkToken("]")) {
+                    this.tokenizer.getAndCheckNext("(");
                     let x = this.tokenizer.getNext();
                     this.tokenizer.getAndCheckNext(",");
                     let y = this.tokenizer.getNext();
                     this.coordinates.push([x, y]);
-                    this.tokenizer.getAndCheckNext("\\)");
+                    this.tokenizer.getAndCheckNext(")");
                 }
-                this.tokenizer.getAndCheckNext("\\]");
+                this.tokenizer.getAndCheckNext("]");
             } else {
                 throw "Invalid token in position";
             }

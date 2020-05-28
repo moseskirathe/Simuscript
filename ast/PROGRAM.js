@@ -1,11 +1,12 @@
-import GRID from "./GRID";
-import TERRAIN from "./TERRAIN"
+import GRID from "./GRID.js";
+import TERRAIN from "./TERRAIN.js"
 
 import Node from '../libs/Node.js';
-import {CREATUREDEF} from "./CREATUREDEF";
-import CREATUREPOS from "./CREATUREPOS";
-import PATH from "./PATH";
-import LANDMARKPOS from "./LANDMARKPOS";
+import {CREATUREDEF} from "./CREATUREDEF.js";
+import CREATUREPOS from "./CREATUREPOS.js";
+import PATH from "./PATH.js";
+import LANDMARKPOS from "./LANDMARKPOS.js";
+import PLAY from "./PLAY.js";
 
 export default class PROGRAM extends Node {
 
@@ -17,54 +18,60 @@ export default class PROGRAM extends Node {
         this.creatureDefs = [];
         this.landmarks = [];
         this.creatures = [];
+        this.play = null;
     }
 
     parse() {
-        this.grid = new GRID();
-        this.grid.parse();
-        while (this.tokenizer.checkToken("set rectangle")) {
-            let terrain = new TERRAIN();
-            terrain.parse();
-            this.terrain.push(terrain);
-        }
-        while (this.tokenizer.checkToken("draw from")) {
-            let path = new PATH();
-            path.parse();
-            this.paths.push(path);
-        }
-        while (this.tokenizer.checkToken("define")) {
-            let creatureDef = new CREATUREDEF();
-            creatureDef.parse();
-            this.creatureDefs.push(creatureDef);
-        }
-        while (this.tokenizer.checkToken("plant")) {
-            let landmark = new LANDMARKPOS();
-            landmark.parse();
-            this.landmarks.push(landmark);
-        }
-        while (this.tokenizer.checkToken("place")) {
-            let creature = new CREATUREPOS();
-            creature.parse();
-            this.creatures.push(creature);
+        while (this.tokenizer.moreTokens()) {
+            this.grid = new GRID();
+            this.grid.parse();
+            while (this.tokenizer.checkToken("set rectangle")) {
+                let terrain = new TERRAIN();
+                terrain.parse();
+                this.terrain.push(terrain);
+            }
+            while (this.tokenizer.checkToken("draw from")) {
+                let path = new PATH();
+                path.parse();
+                this.paths.push(path);
+            }
+            while (this.tokenizer.checkToken("define")) {
+                let creatureDef = new CREATUREDEF();
+                creatureDef.parse();
+                this.creatureDefs.push(creatureDef);
+            }
+            while (this.tokenizer.checkToken("plant")) {
+                let landmark = new LANDMARKPOS();
+                landmark.parse();
+                this.landmarks.push(landmark);
+            }
+            while (this.tokenizer.checkToken("place")) {
+                let creature = new CREATUREPOS();
+                creature.parse();
+                this.creatures.push(creature);
+            }
+            this.play = new PLAY();
+            this.play.parse();
         }
     }
 
     evaluate(gameState) {
         this.grid.evaluate(gameState);
         this.terrain.forEach(terr => {
-            terr.evaluate();
+            terr.evaluate(gameState);
         });
         this.paths.forEach(path => {
-            path.evaluate();
+            path.evaluate(gameState);
         });
         this.creatureDefs.forEach(def => {
-            def.evaluate();
+            def.evaluate(gameState);
         });
         this.landmarks.forEach(landmark => {
-            landmark.evaluate();
+            landmark.evaluate(gameState);
         });
         this.creatures.forEach(creature => {
-            creature.evaluate();
+            creature.evaluate(gameState);
         });
+        this.play.evaluate(gameState);
     }
 }

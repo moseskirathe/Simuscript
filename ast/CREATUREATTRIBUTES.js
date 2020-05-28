@@ -12,6 +12,8 @@ export default class CREATUREATTRIBUTES extends Node {
         this.scared_of = null;
     }
 
+    //TODO add multiple drops/collects
+
     parse() {
         while (this.tokenizer.checkToken("that")) {
             this.tokenizer.getAndCheckNext("that");
@@ -23,13 +25,13 @@ export default class CREATUREATTRIBUTES extends Node {
                 this.drops = [];
                 let item = new ITEM();
                 item.parse();
-                this.drops.push(item);
-                while (this.tokenizer.checkNext() === "and") {
-                    this.tokenizer.getAndCheckNext("and");
-                    let item = new ITEM();
-                    item.parse();
-                    this.drops.push(item);
-                }
+                this.drops = item;
+                //while (this.tokenizer.checkNext() === "and") {
+                //    this.tokenizer.getAndCheckNext("and");
+                //    let item = new ITEM();
+                //   item.parse();
+                //   this.drops.push(item);
+                //}
             } else if (this.tokenizer.checkNext() === "likes") {
                 this.tokenizer.getAndCheckNext("likes");
                 this.likes = [];
@@ -41,11 +43,15 @@ export default class CREATUREATTRIBUTES extends Node {
             } else if (this.tokenizer.checkNext() === "collects") {
                 this.tokenizer.getAndCheckNext("collects");
                 this.collects = [];
-                this.collects.push(this.tokenizer.getNext());
-                while (this.tokenizer.checkNext() === "and") {
-                    this.tokenizer.getAndCheckNext("and");
-                    this.collects.push(this.tokenizer.getNext());
-                }
+                let item = new ITEM();
+                item.parse();
+                this.collects = item;
+                //while (this.tokenizer.checkNext() === "and") {
+                //    this.tokenizer.getAndCheckNext("and");
+                //    let item = new ITEM();
+                //    item.parse();
+                //   this.collects.push(this.tokenizer.getNext());
+                //}
             } else if (this.tokenizer.checkNext() === "dislikes") {
                 this.tokenizer.getAndCheckNext("dislikes");
                 this.scared_of = [];
@@ -55,17 +61,25 @@ export default class CREATUREATTRIBUTES extends Node {
                     this.scared_of.push(this.tokenizer.getNext());
                 }
             } else {
-                throw "ERROR: Unidentified texture type. Please use one of the following textures: grass, swamp, tree, hill, dirt or water";
+                throw ("got " + this.tokenizer.checkNext() + " instead of attribute");
             }
         }
     }
 
     evaluate(gameState) {
+        let drops = this.drops;
+        let collects = this.collects;
+        if (drops !== null) {
+            drops = drops.evaluate(gameState);
+        }
+        if (collects !== null) {
+            collects = collects.evaluate(gameState);
+        }
         return {
             moves: this.moves,
-            drops: this.drops,
+            drops: drops,
             likes: this.likes,
-            collects: this.collects,
+            collects: collects,
             scared_of: this.scared_of
         }
     }

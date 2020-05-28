@@ -26,13 +26,13 @@ export default class TERRAIN extends Node {
         this.bottomrighty = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(")");
 
-        this.tokenizer.getAndCheckNext("to");
+        this.tokenizer.getAndCheckNext("as");
 
         this.texture.parse();
     }
 
     evaluate(gameState) {
-        let tex = this.texture;
+        let tex = this.texture.evaluate();
         gameState.draw_terrain_by_rectangle(tex, this.topleftx, this.toplefty, this.bottomrightx, this.bottomrighty);
     }
 }

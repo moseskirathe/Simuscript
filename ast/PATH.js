@@ -13,21 +13,21 @@ export default class PATH extends Node {
     }
 
     parse() {
-        this.tokenizer.getAndCheckNext("draw from \\(");
-        this.tokenizer.getAndCheckNext("\\(");
+        this.tokenizer.getAndCheckNext("draw from (");
+        this.tokenizer.getAndCheckNext("(");
         this.topLeftX = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(",");
         this.topLeftY = this.tokenizer.getNext();
-        this.tokenizer.getAndCheckNext("\\)");
-        this.tokenizer.getAndCheckNext("\\(");
+        this.tokenizer.getAndCheckNext(")");
+        this.tokenizer.getAndCheckNext("(");
         this.bottomRightX = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(",");
         this.bottomRightY = this.tokenizer.getNext();
-        this.tokenizer.getAndCheckNext("\\)");
+        this.tokenizer.getAndCheckNext(")");
         this.tokenizer.getAndCheckNext("using");
         this.texture = new TEXTURE();
         this.texture.parse();
-        // add checks for waviness and thickness once implemented
+        // TODO add checks for waviness and thickness once implemented
     }
 
     evaluate(gameState) {

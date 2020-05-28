@@ -5,6 +5,4 @@ export default class Node {
         this.tokenizer = tokenizer.getTokenizer();
     }
 
-    parse();
-    evaluate(gameState);
 }

@@ -1,5 +1,5 @@
 import Node from '../libs/Node.js';
-import LANDMARK from './LANDMARK';
+import LANDMARK from './LANDMARK.js';
 
 export default class LANDMARKPOS extends Node {
 
@@ -16,24 +16,24 @@ export default class LANDMARKPOS extends Node {
         landmark.parse();
         if (this.tokenizer.checkToken("at")) {
             this.tokenizer.getAndCheckNext("at");
-            if (this.tokenizer.checkToken("\\(")) {
-                this.tokenizer.getAndCheckNext("\\(");
+            if (this.tokenizer.checkToken("(")) {
+                this.tokenizer.getAndCheckNext("(");
                 let x = this.tokenizer.getNext();
                 this.tokenizer.getAndCheckNext(",");
                 let y = this.tokenizer.getNext();
                 this.coordinates.push([x, y]);
-                this.tokenizer.getAndCheckNext("\\)");
-            } else if (this.tokenizer.checkToken("\\[")) {
-                this.tokenizer.getAndCheckNext("\\[");
-                while (!this.tokenizer.checkToken("\\]")) {
-                    this.tokenizer.getAndCheckNext("\\(");
+                this.tokenizer.getAndCheckNext(")");
+            } else if (this.tokenizer.checkToken("[")) {
+                this.tokenizer.getAndCheckNext("[");
+                while (!this.tokenizer.checkToken("]")) {
+                    this.tokenizer.getAndCheckNext("(");
                     let x = this.tokenizer.getNext();
                     this.tokenizer.getAndCheckNext(",");
                     let y = this.tokenizer.getNext();
                     this.coordinates.push([x, y]);
-                    this.tokenizer.getAndCheckNext("\\)");
+                    this.tokenizer.getAndCheckNext(")");
                 }
-                this.tokenizer.getAndCheckNext("\\]");
+                this.tokenizer.getAndCheckNext("]");
             } else {
                 throw "Invalid token in position";
             }

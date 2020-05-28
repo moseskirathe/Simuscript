@@ -2,7 +2,7 @@ import Node from '../libs/Node.js';
 import CREATURENAME from './CREATURENAME.js';
 import CREATURETYPE from  './CREATURETYPE.js';
 import CREATUREATTRIBUTES from './CREATUREATTRIBUTES.js';
-import { creatureTable } from '../ui/main';
+import { creatureTable } from '../ui/main.js';
 
 export class CREATUREDEF extends Node {
 

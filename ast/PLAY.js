@@ -10,7 +10,7 @@ export default class PLAY extends Node {
     parse() {
         this.tokenizer.getAndCheckNext("play for");
         this.duration = this.tokenizer.getNext();
-        this.tokenizer.getAndCheckNext("turns");
+        this.tokenizer.getAndCheckNext("seconds");
     }
 
     evaluate(gameState) {

@@ -1,4 +1,4 @@
-var Node = require('../libs/Node.js');
+import Node from '../libs/Node.js';
 export default class LANDMARK extends Node {
 
     constructor() {
@@ -9,7 +9,7 @@ export default class LANDMARK extends Node {
 
     parse() {
         this.name = this.tokenizer.getNext();
-        if (!this.valid.contains(this.name)) {
+        if (!this.valid.includes(this.name)) {
             throw "Invalid object";
         }
     }
