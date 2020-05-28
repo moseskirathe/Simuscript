@@ -5,19 +5,26 @@ module.exports = class Path extends Node {
 
     constructor() {
         super();
-        this.topLeft = 0;
-        this.bottomRight = 0;
+        this.topLeftX = 0;
+        this.topLeftY = 0;
+        this.bottomRightX = 0;
+        this.bottomRightY = 0;
         this.texture = null;
     }
 
     parse() {
         this.tokenizer.getAndCheckNext("draw from \\(");
-        this.topLeft = this.tokenizer.getNext();
+        this.topLeftX = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext(",");
-        this.bottomRight = this.tokenizer.getNext();
+        this.topLeftY = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext("\\(");
+        this.bottomRightX = this.tokenizer.getNext();
+        this.tokenizer.getAndCheckNext(",");
+        this.bottomRightY = this.tokenizer.getNext();
         this.tokenizer.getAndCheckNext("using");
         this.texture = new TEXTURE();
         this.texture.parse();
+        this.tokenizer.getAndCheckNext("\\)");
         // add checks for waviness and thickness once implemented
     }
 }
