@@ -1,6 +1,8 @@
 import Node from '../libs/Node.js';
 export default class LANDMARK extends Node {
 
+    //TODO add sprites
+
     constructor() {
         super();
         this.name = "";

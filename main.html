@@ -172,7 +172,6 @@
                 sprite.random_move();
             // if sprite likes another sprite, move towards it
             } else if (sprite.likes !== null) {
-                console.log(sprite.likes);
                 for (let i = 0; i < game_state.creatures.length; i++) {
                     if (sprite.likes === game_state.creatures[i].name) {
                         let x_dif = sprite.x - game_state.creatures[i].x;
@@ -184,7 +183,7 @@
                             } else if (x_dif < 0) {
                                 sprite.move_in_direction(3);
                             }
-                        } else if (Math.abs(x_dif) < Math.abs(y_dif)) {
+                        } else if (Math.abs(x_dif) <= Math.abs(y_dif)) {
                             if (y_dif > 0) {
                                 sprite.move_in_direction(0);
                             } else if (y_dif < 0) {
@@ -194,7 +193,7 @@
                     }
                 }
             // if sprite is scared of another sprite, move away from it
-            } else if (this.scared_of !== null) {
+            } else if (sprite.scared_of !== null) {
                 for (let i = 0; i < game_state.creatures.length; i++) {
                     if (sprite.scared_of === game_state.creatures[i].name) {
                         let x_dif = sprite.x - game_state.creatures[i].x;
@@ -222,7 +221,6 @@
             if (sprite.drops !== null && sprite.drop_counter > 2) {
                 sprite.drop_counter = 0;
                 let item_type = sprite.drops;
-                console.log(item_type);
                 let item_img = loadedImages[item_type];
                 items.push({
                     type: item_type,
@@ -237,8 +235,7 @@
                 let img = items[i]["img"];
                 let x = items[i]["x"];
                 let y = items[i]["y"];
-                console.log(items[i]["img"]);
-                ctx.drawImage(items[i]["img"], x * square_size, y * square_size, (square_size/1.5), (square_size/1.5));
+                ctx.drawImage(img, x * square_size, y * square_size, (square_size/1.5), (square_size/1.5));
             }
 
             // render the sprite

@@ -35,11 +35,11 @@ export default class CREATUREATTRIBUTES extends Node {
             } else if (this.tokenizer.checkNext() === "likes") {
                 this.tokenizer.getAndCheckNext("likes");
                 this.likes = [];
-                this.likes.push(this.tokenizer.getNext());
-                while (this.tokenizer.checkNext() === "and") {
-                    this.tokenizer.getAndCheckNext("and");
-                    this.likes.push(this.tokenizer.getNext());
-                }
+                this.likes = (this.tokenizer.getNext());
+                //while (this.tokenizer.checkNext() === "and") {
+                //    this.tokenizer.getAndCheckNext("and");
+                //    this.likes.push(this.tokenizer.getNext());
+                //}
             } else if (this.tokenizer.checkNext() === "collects") {
                 this.tokenizer.getAndCheckNext("collects");
                 this.collects = [];
@@ -55,11 +55,11 @@ export default class CREATUREATTRIBUTES extends Node {
             } else if (this.tokenizer.checkNext() === "dislikes") {
                 this.tokenizer.getAndCheckNext("dislikes");
                 this.scared_of = [];
-                this.scared_of.push(this.tokenizer.getNext());
-                while (this.tokenizer.checkNext() === "and") {
-                    this.tokenizer.getAndCheckNext("and");
-                    this.scared_of.push(this.tokenizer.getNext());
-                }
+                this.scared_of = this.tokenizer.getNext();
+                //while (this.tokenizer.checkNext() === "and") {
+                //    this.tokenizer.getAndCheckNext("and");
+                //    this.scared_of.push(this.tokenizer.getNext());
+                //}
             } else {
                 throw ("got " + this.tokenizer.checkNext() + " instead of attribute");
             }

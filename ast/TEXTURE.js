@@ -5,25 +5,13 @@ export default class TEXTURE extends Node {
     constructor() {
         super();
         this.type = "";
+        this.valid = ["forest" , "rock" , "ice" , "lava" , "swamp" , "desert", "dirt", "grass", "path"]
     }
 
     parse() {
-        if (this.tokenizer.checkToken("rock")) {
-            this.type = this.tokenizer.getAndCheckNext("rock");
-        } else if (this.tokenizer.checkToken("grass")) {
-            this.type = this.tokenizer.getAndCheckNext("grass");
-        } else if (this.tokenizer.checkToken("swamp")) {
-            this.type = this.tokenizer.getAndCheckNext("swamp");
-        } else if (this.tokenizer.checkToken("tree")) {
-            this.type = this.tokenizer.getAndCheckNext("tree");
-        } else if (this.tokenizer.checkToken("hill")) {
-            this.type = this.tokenizer.getAndCheckNext("hill");
-        } else if (this.tokenizer.checkToken("dirt")) {
-            this.type = this.tokenizer.getAndCheckNext("dirt");
-        } else if (this.tokenizer.checkToken("water")) {
-            this.type = this.tokenizer.getAndCheckNext("water");
-        } else {
-            console.log(this.tokenizer.checkToken() + " is not a valid TEXTURE");
+        this.type = this.tokenizer.getNext();
+        if (!this.valid.includes(this.type)) {
+            throw (this.tokenizer.getNext() + " is not a valid TEXTURE");
         }
     }
 

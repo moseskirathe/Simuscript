@@ -3,7 +3,7 @@ export default class Item extends Node {
 
     constructor() {
         super();
-        this.valid = ["feathers" , "gold" , "meat" , "egg" , "weapon" , "potion"]
+        this.valid = ["feather" , "gold" , "meat" , "egg" , "friedegg", "potion"]
         this.name = "";
     }
 

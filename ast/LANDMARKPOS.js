@@ -47,7 +47,7 @@ export default class LANDMARKPOS extends Node {
     evaluate(gameState) {
         if (this.times !== 0) {
             for (let i = 0; i < this.times; i++) {
-                this.coordinates.push([Math.floor(Math.random() * gameState.width), Math.floor(Math.random() * gameState.height)]);
+                this.coordinates.push([Math.floor(Math.random() * gameState.grid_width), Math.floor(Math.random() * gameState.grid_height)]);
             }
         }
         let landmark = this.landmark.evaluate();
