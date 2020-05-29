@@ -5,14 +5,13 @@ Characters can be customized to have different qualities. For example, character
 
 SimuScript is built for prospective game developers, providing an intuitive way to test out game ideas through the construction of draft maps and worlds, and the ability to run quick simulations to see how the game would play out.
 
-<img src="https://github.com/aidanmathewson/SimuScript/tree/master/images/demo.png" width="200" height="200">
+<img src="https://simuscript.000webhostapp.com/images/demo.png" width="300" height="300">
 
 ### EBNF
 *EBNF goes here*
 
 ### Example Program
 ```
-
 set grid size to be(15,15)
 set rectangle (0,0)(14,14) as grass
 draw from (0,0)(14,14) using rock with waviness 2 thickness 1
@@ -21,10 +20,8 @@ define bigkitty as wolf that moves that drops meat that collects diamond
 place bigkitty anywhere 5 times
 place chicko anywhere 8 times
 play for 10 seconds
-
-
 ```
 
-## DEMO
-*Demo link goes here*
+### DEMO
+[I'm an inline-style link with title](https://simuscript.000webhostapp.com/main.html "SimuScript Demo")
 
