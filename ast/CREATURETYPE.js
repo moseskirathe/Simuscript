@@ -6,7 +6,7 @@ export default class CREATURETYPE extends Node {
 
     constructor() {
         super();
-        this.valid = ["cat", "chicken", "dog", "demon", "lizard", "mouse", "slime", "zombie", "sheep", "rhino"]
+        this.valid = ["cat", "chicken", "dog", "deer", "hamster", "horse", "monkey", "parrot", "squirrel", "wolf"]
         this.type = "";
     }
 

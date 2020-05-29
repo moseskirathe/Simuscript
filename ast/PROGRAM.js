@@ -50,8 +50,10 @@ export default class PROGRAM extends Node {
                 creature.parse();
                 this.creatures.push(creature);
             }
-            this.play = new PLAY();
-            this.play.parse();
+            if (this.tokenizer.checkToken("play for")) {
+                this.play = new PLAY();
+                this.play.parse();
+            }
         }
     }
 
@@ -72,6 +74,8 @@ export default class PROGRAM extends Node {
         this.creatures.forEach(creature => {
             creature.evaluate(gameState);
         });
-        this.play.evaluate(gameState);
+        if (this.play !== null) {
+            this.play.evaluate(gameState);
+        }
     }
 }

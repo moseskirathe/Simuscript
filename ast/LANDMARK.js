@@ -6,7 +6,7 @@ export default class LANDMARK extends Node {
     constructor() {
         super();
         this.name = "";
-        this.valid = ["barrel", "box", "chest", "boot", "book"];
+        this.valid = ["bamboo", "cactus", "coconuttree", "pond", "rose", "sakura", "shell", "temple", "volcano", "stone", "house"];
     }
 
     parse() {

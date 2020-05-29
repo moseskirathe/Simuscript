@@ -16,8 +16,7 @@
         <textarea id="input-area" name="input-area" rows="8" cols="50">Type here...</textarea>
         <br><br>
         <!--todo -- when project completed, submit button will just send user input to be processed and from there simulation is called-->
-        <input type="button" id="submit" value="Submit">
-        <button type="button" id="render">Render</button>
+        <button type="button" id="submit">Submit</button>
         <br><br>
     </form>
 </div>
@@ -29,9 +28,7 @@
     import init from "./ui/main.js"
 
     window.addEventListener('DOMContentLoaded', () => {
-        console.log("hello");
-        document.getElementById("submit").addEventListener("click", () => start_simulation(game_state.seconds), false);
-        document.getElementById("render").addEventListener("click", () => render(), false);
+        document.getElementById("submit").addEventListener("click", () => render(), false);
     });
 
     // set up canvas constants
@@ -42,16 +39,38 @@
 
     // load images
     let images = [
+        'images/bamboo.png',
+        'images/cactus.png',
         'images/cat.png',
         'images/chicken.png',
+        'images/coconuttree.png',
+        'images/deer.png',
         'images/grass.png',
         'images/path.png',
         'images/desert.png',
+        'images/diamond.png',
         'images/dirt.png',
+        'images/dog.png',
+        'images/duck.png',
         'images/egg.png',
-        'images/fried_egg.png',
+        'images/hamster.png',
+        'images/horse.png',
+        'images/house.png',
+        'images/monkey.png',
+        'images/mountain.png',
+        'images/parrot.png',
+        'images/rose.png',
+        'images/sakura.png',
+        'images/shell.png',
+        'images/squirrel.png',
+        'images/stone.png',
+        'images/temple.png',
+        'images/volcano.png',
+        'images/wolf.png',
+        'images/pond.png',
+        'images/friedegg.png',
         'images/gold.png',
-        'images/gold_feather.png',
+        'images/feather.png',
         'images/ice.png',
         'images/lava.png',
         'images/meat.png',
