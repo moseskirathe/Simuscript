@@ -173,6 +173,8 @@
         console.log("Draw");
         // render the grid
         setup_grid(game_state.grid_width, game_state.grid_height);
+        let liked_found = false;
+        let loc = 0;
 
         // render terrain and landmarks from game state matrix
         for (let i = 0; i < game_state.grid_height; i++) {
@@ -185,6 +187,7 @@
                 ctx.drawImage(landmark_img, i * square_size, j * square_size, square_size, square_size);
             }
         }
+
         // iterate through array of sprite objects
         for (let i = 0; i < game_state.number_of_creatures(); i++) {
             let sprite = game_state.creatures[i];
@@ -193,47 +196,66 @@
                 sprite.random_move();
             // if sprite likes another sprite, move towards it
             } else if (sprite.likes !== null) {
-                for (let i = 0; i < game_state.creatures.length; i++) {
-                    if (sprite.likes === game_state.creatures[i].name) {
-                        let x_dif = sprite.x - game_state.creatures[i].x;
-                        let y_dif = sprite.y - game_state.creatures[i].y;
+                liked_found = false;
+                loc = 0;
+              //  for (let i = 0; i < game_state.creatures.length; i++) {
+                while (loc < game_state.creatures.length || !liked_found) {
+                    if (sprite.likes === game_state.creatures[loc].name) {
+                        let x_dif = sprite.x - game_state.creatures[loc].x;
+                        let y_dif = sprite.y - game_state.creatures[loc].y;
                         if (Math.abs(x_dif) > Math.abs(y_dif)) {
                             if (x_dif > 0) {
                                 // go negative direction x - west
                                 sprite.move_in_direction(2);
+                                liked_found = true;
                             } else if (x_dif < 0) {
                                 sprite.move_in_direction(3);
+                                liked_found = true;
                             }
                         } else if (Math.abs(x_dif) <= Math.abs(y_dif)) {
                             if (y_dif > 0) {
                                 sprite.move_in_direction(0);
+                                liked_found = true;
                             } else if (y_dif < 0) {
                                 sprite.move_in_direction(1);
+                                liked_found = true;
                             }
                         }
                     }
+                    loc++;
                 }
+               // }
             // if sprite is scared of another sprite, move away from it
             } else if (sprite.scared_of !== null) {
-                for (let i = 0; i < game_state.creatures.length; i++) {
-                    if (sprite.scared_of === game_state.creatures[i].name) {
-                        let x_dif = sprite.x - game_state.creatures[i].x;
-                        let y_dif = sprite.y - game_state.creatures[i].y;
+                //for (let i = 0; i < game_state.creatures.length; i++) {
+                liked_found = false;
+                loc = 0;
+                //  for (let i = 0; i < game_state.creatures.length; i++) {
+                while (loc < game_state.creatures.length || !liked_found) {
+                    if (sprite.scared_of === game_state.creatures[loc].name) {
+                        let x_dif = sprite.x - game_state.creatures[loc].x;
+                        let y_dif = sprite.y - game_state.creatures[loc].y;
                         if (Math.abs(x_dif) > Math.abs(y_dif)) {
                             if (x_dif > 0) {
                                 // go negative direction x - west
                                 sprite.move_in_direction(3);
+                                liked_found = true;
                             } else if (x_dif < 0) {
                                 sprite.move_in_direction(2);
+                                liked_found = true;
                             }
                         } else if (Math.abs(x_dif) < Math.abs(y_dif)) {
                             if (y_dif > 0) {
                                 sprite.move_in_direction(1);
+                                liked_found = true;
                             } else if (y_dif < 0) {
                                 sprite.move_in_direction(0);
+                                liked_found = true;
                             }
                         }
                     }
+                    loc++;
+                    //}
                 }
 
             }
