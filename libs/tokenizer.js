@@ -41,6 +41,7 @@ export default class tokenizer {
         console.log("Done tokenizing");
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     checkNext() {
         let token;
         if (this.currentToken < this.tokens.length){
@@ -51,6 +52,7 @@ export default class tokenizer {
         return token;
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     getNext() {
         let token;
         if (this.currentToken < this.tokens.length){
@@ -62,11 +64,13 @@ export default class tokenizer {
         return token;
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     checkToken(toMatch) {
         let s = this.checkNext();
         return (s === toMatch);
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     getAndCheckNext(toMatch) {
         let s = this.getNext();
         if (!(s === toMatch)) {
@@ -75,16 +79,19 @@ export default class tokenizer {
         return s;
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     moreTokens() {
         return this.currentToken < this.tokens.length;
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     static makeTokenizer(literals, input) {
         if (theTokenizer === null) {
             theTokenizer = new tokenizer(literals, input);
         }
     }
 
+    //implemented from sample code of the tinyDot program, provided by Alex Summers in lecture 2
     static getTokenizer() {
         return theTokenizer;
     }
