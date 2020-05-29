@@ -23,5 +23,5 @@ play for 10 seconds
 ```
 
 ### DEMO
-[I'm an inline-style link with title](https://simuscript.000webhostapp.com/main.html "SimuScript Demo")
+Want to see SimuScript in action? Here is a [demo](https://simuscript.000webhostapp.com/main.html "SimuScript Demo")
 
