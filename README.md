@@ -7,8 +7,30 @@ SimuScript is built for prospective game developers, providing an intuitive way 
 
 <img src="https://simuscript.000webhostapp.com/images/demo.png" width="300" height="300">
 
-### EBNF
-*EBNF goes here*
+### Grammar
+PROGRAM::= GRID TERRAIN* PATH* LANDMARKPOS* CREATURE? PLAY?  
+GRID::= “Set grid size to be” (NUM, NUM)  
+
+TERRAIN ::= “Set rectangle”  (NUM, NUM) (NUM, NUM) “to” TEXTURE  
+TEXTURE ::= "forest" | "rock" | "ice" | "lava" | "swamp" | "desert" | "dirt" | "grass" | "path"  
+PATH::= “draw from” (NUM, NUM) “using” TEXTURE (“with” (waviness NUM)? (thickness NUM)?)?  
+
+
+CREATURE::= CREATUREDEF* CREATUREPOS*  
+CREATUREDEF ::= “Define” CREATURENAME “as” CREATURETYPE (CREATUREATTRIBUTES)*  
+CREATURETYPE = "cat" | "chicken" | "dog" | "deer" | "hamster" | "horse" | "monkey" | "parrot" | "squirrel" | "wolf"  
+
+CREATUREATTRIBUTES ::= (“that” (“moves” | “drops” ITEM | “likes” CREATURENAME | “collects” ITEM | “dislikes” CREATURENAME)+  
+CREATUREPOS ::= “place” CREATURENAME “at” ((NUM, NUM) | [(NUM, NUM)+] | “anywhere” NUM “times”)  
+LANDMARK ::= "bamboo" | "cactus" | "coconuttree" | "pond" | "rose" | "sakura" | "shell" | "temple" | "volcano" | "stone" | "house"  
+
+LANDMARKPOS ::= “plant” LANDMARK “at” ((NUM, NUM) | [(NUM, NUM)+] | “anywhere” NUM “times”)  
+ENTITY ::= (CREATURENAME | CREATURETYPE | LANDMARK | TEXTURE)  
+ITEM ::= "feather" | "gold" | "meat" | "egg" | "friedegg" | "potion" | "scroll" | "diamond"  
+
+CREATURENAME ::= STRING  
+PLAY::= “Play for” NUM “seconds”
+
 
 ### Example Program
 ```

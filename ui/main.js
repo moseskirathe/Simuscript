@@ -8,7 +8,7 @@ export default function init(input){
     // initialize tokenizer
     let literals = ["set grid size to be","set rectangle","draw from",
                     "using","with","waviness","thickness","define"," as", " at", "that","place", "plant",
-                    "anywhere","times","play for","seconds", "drops", "collects", "dislikes", " likes", "(", ")", ","];
+                    "anywhere","times","play for","seconds", "moves", "drops", "collects", "dislikes", " likes", "(", ")", ","];
 
     //TODO add rest of literals
     input = input.toLowerCase();
