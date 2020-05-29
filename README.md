@@ -44,6 +44,10 @@ place chicko anywhere 8 times
 play for 10 seconds
 ```
 
-### Credits
-Tokenizer was implemented using the method outlined in CPSC 410 Lecture 2 by Alex Summers
+### Source Citation
+SOURCE CITATION for tokenizer class
+Title: <tinyHTML Program>
+Provided by: <Alex Summers>
+Date: <March 13, 2020>
+Availability: <http://www.students.cs.ubc.ca/~410/repos/tinyHTML.zip>
 

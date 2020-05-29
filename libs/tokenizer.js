@@ -1,3 +1,11 @@
+    /***************************************************************************************
+    *    SOURCE CITATION for tokenizer class
+    *    Title: <tinyHTML Program>
+    *    Provided by: <Alex Summers>
+    *    Date: <March 13, 2020>
+    *    Availability: <http://www.students.cs.ubc.ca/~410/repos/tinyHTML.zip>
+    ***************************************************************************************/
+
 let theTokenizer = null;
 let literals;
 
@@ -12,6 +20,8 @@ export default class tokenizer {
         this.tokenize();
     }
 
+
+    
     //implemented using the method outlined in lecture 2 by Alex Summers
     tokenize () {
         console.log("Initializing tokenizer");
