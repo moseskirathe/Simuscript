@@ -52,8 +52,6 @@ export default class PATH extends Node {
         let waviness = this.waviness;
         let thickness = this.thickness;
         while (x < this.bottomRightX && y < this.bottomRightY) {
-            console.log(x);
-            console.log(y);
             if (horiz) {
                 newx = x + Math.max(waviness, 1);
                 newy = y + thickness - 1;
@@ -61,8 +59,6 @@ export default class PATH extends Node {
                 newx = x + thickness - 1;
                 newy = y + Math.max(waviness, 1);
             }
-            console.log("new" + newx);
-            console.log("new" + newy);
             gameState.draw_terrain_by_rectangle(tex, x, y, Math.min(newx, this.bottomRightX), Math.min(newy, this.bottomRightY));
             if (horiz) {
                 x = newx;

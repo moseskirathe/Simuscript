@@ -1,10 +1,10 @@
-var Node = require('../libs/Node.js');
-var CREATURE = require('./CREATURE.js');
-var CREATURETYPE = require('./CREATURETYPE.js');
-var INANIMATE = require('./INANIMATE.js');
-var TEXTURE = require('./TEXTURE.js');
+import Node from '../libs/Node.js';
+import CREATURE from './CREATURE.js';
+import CREATURETYPE from './CREATURETYPE.js';
+import INANIMATE from './INANIMATE.js';
+import TEXTURE from './TEXTURE.js'
 
-module.exports = class ENTITY extends Node {
+export default class ENTITY extends Node {
 
     constructor() {
         super();

@@ -12,8 +12,6 @@ export default class CREATUREATTRIBUTES extends Node {
         this.scared_of = null;
     }
 
-    //TODO add multiple drops/collects
-
     parse() {
         while (this.tokenizer.checkToken("that")) {
             this.tokenizer.getAndCheckNext("that");
@@ -26,40 +24,20 @@ export default class CREATUREATTRIBUTES extends Node {
                 let item = new ITEM();
                 item.parse();
                 this.drops = item;
-                //while (this.tokenizer.checkNext() === "and") {
-                //    this.tokenizer.getAndCheckNext("and");
-                //    let item = new ITEM();
-                //   item.parse();
-                //   this.drops.push(item);
-                //}
             } else if (this.tokenizer.checkNext() === "likes") {
                 this.tokenizer.getAndCheckNext("likes");
                 this.likes = [];
                 this.likes = (this.tokenizer.getNext());
-                //while (this.tokenizer.checkNext() === "and") {
-                //    this.tokenizer.getAndCheckNext("and");
-                //    this.likes.push(this.tokenizer.getNext());
-                //}
             } else if (this.tokenizer.checkNext() === "collects") {
                 this.tokenizer.getAndCheckNext("collects");
                 this.collects = [];
                 let item = new ITEM();
                 item.parse();
                 this.collects = item;
-                //while (this.tokenizer.checkNext() === "and") {
-                //    this.tokenizer.getAndCheckNext("and");
-                //    let item = new ITEM();
-                //    item.parse();
-                //   this.collects.push(this.tokenizer.getNext());
-                //}
             } else if (this.tokenizer.checkNext() === "dislikes") {
                 this.tokenizer.getAndCheckNext("dislikes");
                 this.scared_of = [];
                 this.scared_of = this.tokenizer.getNext();
-                //while (this.tokenizer.checkNext() === "and") {
-                //    this.tokenizer.getAndCheckNext("and");
-                //    this.scared_of.push(this.tokenizer.getNext());
-                //}
             } else {
                 throw ("got " + this.tokenizer.checkNext() + " instead of attribute");
             }

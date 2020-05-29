@@ -44,6 +44,6 @@ place chicko anywhere 8 times
 play for 10 seconds
 ```
 
-### DEMO
-*Demo goes here*
+### Credits
+Tokenizer was implemented using the method outlined in CPSC 410 Lecture 2 by Alex Summers
 

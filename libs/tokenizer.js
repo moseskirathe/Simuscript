@@ -4,47 +4,45 @@ let literals;
 export default class tokenizer {
 
     constructor(literal, input) {
+        this.RESERVEDWORD = "_"
         literals = literal;
         this.program = input;
-        this.theTokenizer = null;
         this.currentToken = 0;
         this.tokens = [];
         this.tokenize();
     }
 
+    //implemented using the method outlined in lecture 2 by Alex Summers
     tokenize () {
         console.log("Initializing tokenizer");
-        //0. Pick some RESERVEDWORD (string which never occurs in your input) : we'll use _
-        //1. Read the whole program into a single string; kill the newlines
+        //0. Pick some RESERVEDWORD (string which never occurs in your input)
+        //1. Read the whole program into a single string; kill the newlines and tabs
         let tokenizedProgram = this.program.replace("\n","");
-        console.log(tokenizedProgram);
-        //2. Replace all constant literals with _<literal>_
+        //2. Replace all constant literals with “RESERVEDWORD”<the literal>“RESERVEDWORD”
+        let that = this;
         literals.forEach(function(s) {
-            console.log(s);
-            //let regex = new RegExp(s, 'g')
-            tokenizedProgram = tokenizedProgram.split(s).join("_"+s.trim()+"_");
-            console.log(tokenizedProgram);
+            tokenizedProgram = tokenizedProgram.split(s).join(that.RESERVEDWORD + s.trim() + that.RESERVEDWORD);
         });
         //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
-        tokenizedProgram = tokenizedProgram.replace("__","_");
-        console.log(tokenizedProgram);
-        //4. Remove leading “_” character, then split on “_”
-        if(tokenizedProgram.length>0 && tokenizedProgram[0] == "_"){
+        tokenizedProgram = tokenizedProgram.replace(this.RESERVEDWORD + this.RESERVEDWORD, this.RESERVEDWORD);
+        //4. Remove leading “RESERVEDWORD” character, then split on “RESERVEDWORD”
+        if(tokenizedProgram.length>0 && tokenizedProgram[0] === this.RESERVEDWORD){
             tokenizedProgram = tokenizedProgram.substring(1);
         }
-        let tokens = tokenizedProgram.split("_");
+        let tokens = tokenizedProgram.split(this.RESERVEDWORD);
         //5. Trim whitespace around tokens
         for(let i = 0; i < tokens.length; i++){
             let t = tokens[i].trim();
-            if (t.length > 0)
+            if (t.length > 0) {
                 this.tokens.push(t);
+            }
         }
         console.log(this.tokens);
         console.log("Done tokenizing");
     }
 
     checkNext() {
-        let token = "";
+        let token;
         if (this.currentToken < this.tokens.length){
             token = this.tokens[this.currentToken];
         }
@@ -54,7 +52,7 @@ export default class tokenizer {
     }
 
     getNext() {
-        let token = "";
+        let token;
         if (this.currentToken < this.tokens.length){
             token = this.tokens[this.currentToken];
             this.currentToken++;
@@ -64,15 +62,15 @@ export default class tokenizer {
         return token;
     }
 
-    checkToken(regexp) {
+    checkToken(toMatch) {
         let s = this.checkNext();
-        return (s === regexp);
+        return (s === toMatch);
     }
 
-    getAndCheckNext(regexp) {
+    getAndCheckNext(toMatch) {
         let s = this.getNext();
-        if (!(s === regexp)) {
-            throw "Unexpected next token for Parsing! Expected something matching: " + regexp + " but got: " + s;
+        if (!(s === toMatch)) {
+            throw "That's not what the grammar expects! The parser saw: \"" + s + "\" at token " + this.currentToken + "but wanted: \"" + toMatch + "\"";
         }
         return s;
     }
