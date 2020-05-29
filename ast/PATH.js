@@ -55,11 +55,11 @@ export default class PATH extends Node {
             console.log(x);
             console.log(y);
             if (horiz) {
-                newx = x + Math.max(waviness - 1, 1);
+                newx = x + Math.max(waviness, 1);
                 newy = y + thickness - 1;
             } else {
                 newx = x + thickness - 1;
-                newy = y + Math.max(waviness - 1, 1);
+                newy = y + Math.max(waviness, 1);
             }
             console.log("new" + newx);
             console.log("new" + newy);
