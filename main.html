@@ -28,7 +28,7 @@
     import init from "./ui/main.js"
 
     window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById("submit").addEventListener("click", () => render(), false);
+        document.getElementById("submit").addEventListener("click", () => start_simulation(), false);
     });
 
     // set up canvas constants
@@ -153,7 +153,9 @@
 
      */
 
-    function start_simulation(seconds, game_state) {
+    function start_simulation() {
+        let game_state = init(document.getElementById("input-area").value);
+        let seconds = game_state.seconds;
         console.log(seconds);
         let milliseconds = seconds * 1000;
 

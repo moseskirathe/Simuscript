@@ -52,7 +52,7 @@ export default class CREATUREPOS extends Node {
             }
             let chars = creatureTable[this.name];
             this.coordinates.forEach(set => {
-                let creature = new Sprite(this.name, chars.type, set[0], set[1], gameState.width, gameState.height);
+                let creature = new Sprite(this.name, chars.type, set[0], set[1], gameState.grid_width, gameState.grid_height);
                 creature.setAttributes(chars.attributes);
                 gameState.add_creature(creature);
             })
