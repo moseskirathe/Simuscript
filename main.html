@@ -154,18 +154,29 @@
      */
 
     function start_simulation() {
-        let game_state = init(document.getElementById("input-area").value);
-        let seconds = game_state.seconds;
-        console.log(seconds);
-        let milliseconds = seconds * 1000;
+        try {
+            let game_state = init(document.getElementById("input-area").value);
+            let seconds = game_state.seconds;
+            console.log(seconds);
+            let milliseconds = seconds * 1000;
 
-        // render every 0.25 seconds
-        let intervals = setInterval(() => {
-            draw(game_state);
-        }, 250);
-        setTimeout(function () {
-            clearInterval(intervals);
-        }, milliseconds);
+            // render every 0.25 seconds
+            let intervals = setInterval(() => {
+                draw(game_state);
+            }, 250);
+            setTimeout(function () {
+                clearInterval(intervals);
+            }, milliseconds);
+        } catch (err) {
+            let errorMsg = document.createElement("h3");
+            let node = document.createTextNode(err);
+            errorMsg.appendChild(node);
+            errorMsg.setAttribute("style", "color: red");
+            let canvas = document.getElementById("canvas");
+            canvas.remove();
+            let form = document.getElementById("input-form");
+            form.appendChild(errorMsg);
+        }
 
     }
 
@@ -199,7 +210,9 @@
                 liked_found = false;
                 loc = 0;
               //  for (let i = 0; i < game_state.creatures.length; i++) {
-                while (loc < game_state.creatures.length || !liked_found) {
+                while (loc < game_state.number_of_creatures() || !liked_found) {
+                    console.log(game_state.creatures[loc]);
+                    console.log(loc);
                     if (sprite.likes === game_state.creatures[loc].name) {
                         let x_dif = sprite.x - game_state.creatures[loc].x;
                         let y_dif = sprite.y - game_state.creatures[loc].y;
@@ -231,7 +244,7 @@
                 liked_found = false;
                 loc = 0;
                 //  for (let i = 0; i < game_state.creatures.length; i++) {
-                while (loc < game_state.creatures.length || !liked_found) {
+                while (loc < game_state.number_of_creatures() || !liked_found) {
                     if (sprite.scared_of === game_state.creatures[loc].name) {
                         let x_dif = sprite.x - game_state.creatures[loc].x;
                         let y_dif = sprite.y - game_state.creatures[loc].y;

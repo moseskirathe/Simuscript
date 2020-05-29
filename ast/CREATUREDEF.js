@@ -11,7 +11,6 @@ export class CREATUREDEF extends Node {
         this.creaturename = null;
         this.creaturetype = null;
         this.creatureattributes = null;
-        this.attributes = {};
     }
 
     parse() {
@@ -29,9 +28,12 @@ export class CREATUREDEF extends Node {
     }
 
     evaluate(gameState) {
-        let attributes = this.creatureattributes.evaluate(gameState);
-        let name = this.creaturename.evaluate();
-        let type = this.creaturetype.evaluate();
+        let attributes = this.creatureattributes;
+        if (attributes !== null) {
+            attributes = this.creatureattributes.evaluate(gameState);
+        }
+        let name = this.creaturename.evaluate(gameState);
+        let type = this.creaturetype.evaluate(gameState);
         creatureTable[name] = {
             type: type,
             attributes: attributes

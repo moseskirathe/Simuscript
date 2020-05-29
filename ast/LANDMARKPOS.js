@@ -13,7 +13,7 @@ export default class LANDMARKPOS extends Node {
     parse() {
         this.tokenizer.getAndCheckNext("plant");
         this.landmark = new LANDMARK();
-        landmark.parse();
+        this.landmark.parse();
         if (this.tokenizer.checkToken("at")) {
             this.tokenizer.getAndCheckNext("at");
             if (this.tokenizer.checkToken("(")) {

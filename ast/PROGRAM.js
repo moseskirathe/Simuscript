@@ -35,15 +35,15 @@ export default class PROGRAM extends Node {
                 path.parse();
                 this.paths.push(path);
             }
-            while (this.tokenizer.checkToken("define")) {
-                let creatureDef = new CREATUREDEF();
-                creatureDef.parse();
-                this.creatureDefs.push(creatureDef);
-            }
             while (this.tokenizer.checkToken("plant")) {
                 let landmark = new LANDMARKPOS();
                 landmark.parse();
                 this.landmarks.push(landmark);
+            }
+            while (this.tokenizer.checkToken("define")) {
+                let creatureDef = new CREATUREDEF();
+                creatureDef.parse();
+                this.creatureDefs.push(creatureDef);
             }
             while (this.tokenizer.checkToken("place")) {
                 let creature = new CREATUREPOS();
@@ -65,11 +65,11 @@ export default class PROGRAM extends Node {
         this.paths.forEach(path => {
             path.evaluate(gameState);
         });
-        this.creatureDefs.forEach(def => {
-            def.evaluate(gameState);
-        });
         this.landmarks.forEach(landmark => {
             landmark.evaluate(gameState);
+        });
+        this.creatureDefs.forEach(def => {
+            def.evaluate(gameState);
         });
         this.creatures.forEach(creature => {
             creature.evaluate(gameState);

@@ -96,11 +96,14 @@ class Sprite {
     }
 
     setAttributes(attributes) {
-        this.likes = attributes.likes;
-        this.scared_of = attributes.scared_of;
-        this.drops = attributes.drops;
-        this.collects = attributes.collects;
-        this.moves = attributes.moves;
+        console.log(attributes);
+        if (attributes !== null) {
+            this.likes = attributes.likes;
+            this.scared_of = attributes.scared_of;
+            this.drops = attributes.drops;
+            this.collects = attributes.collects;
+            this.moves = attributes.moves;
+        }
     }
 
 
