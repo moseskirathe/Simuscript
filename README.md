@@ -5,7 +5,7 @@ Characters can be customized to have different qualities. For example, character
 
 SimuScript is built for prospective game developers, providing an intuitive way to test out game ideas through the construction of draft maps and worlds, and the ability to run quick simulations to see how the game would play out.
 
-![demo image](https://github.com/aidanmathewson/SimuScript/tree/master/images/demo.png)
+<img src="https://github.com/aidanmathewson/SimuScript/tree/master/images/demo.png" width="200" height="200">
 
 ### EBNF
 *EBNF goes here*
