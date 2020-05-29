@@ -1,5 +1,5 @@
 # SimuScript
-SimuScript is a Domain Specific Language that allows users to build a gampe map, by specifying the size of the map, setting different terrains, characters and then playing a game simulation to see the game in action.
+SimuScript is a Domain Specific Language that allows users to build a game map, by specifying the size of the map, setting different terrains, characters and then playing a game simulation to see the game in action.
 
 Characters can be customized to have different qualities. For example, characters may like some characters and be scared of others. Characters can be given the ability to drop items as well as collect items that others have dropped.
 
