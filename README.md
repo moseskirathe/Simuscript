@@ -46,8 +46,8 @@ play for 10 seconds
 
 ### Source Citation
 SOURCE CITATION for tokenizer class
-Title: <tinyHTML Program>
-Provided by: <Alex Summers>
-Date: <March 13, 2020>
-Availability: <http://www.students.cs.ubc.ca/~410/repos/tinyHTML.zip>
+Title: tinyHTML Program
+Provided by: Alex Summers
+Date: March 13, 2020
+Availability: http://www.students.cs.ubc.ca/~410/repos/tinyHTML.zip
 
