@@ -96,7 +96,6 @@ class Sprite {
     }
 
     setAttributes(attributes) {
-        console.log(attributes);
         if (attributes !== null) {
             this.likes = attributes.likes;
             this.scared_of = attributes.scared_of;

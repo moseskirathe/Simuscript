@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>DSL TITLE</title>
+    <title>SimuScript Environment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <script src="Sprite.js"></script>
@@ -13,7 +13,7 @@
 <body>
 <div id="input-form">
     <form action="">
-        <textarea id="input-area" name="input-area" rows="8" cols="50" style="width: 830px; height: 160px;" placeholder="Type DSL here"></textarea>
+        <textarea id="input-area" name="input-area" rows="8" cols="50" style="width: 830px; height: 160px;" placeholder="Type SimuScript here"></textarea>
         <br><br>
         <!--todo -- when project completed, submit button will just send user input to be processed and from there simulation is called-->
         <button type="button" id="submit">Run</button>
@@ -188,7 +188,7 @@
         let loc = 0;
 
         // render terrain and landmarks from game state matrix
-        for (let i = 0; i < game_state.grid_height; i++) {
+        for (let i = 0; i < game_state.grid_width; i++) {
             for (let j = 0; j < game_state.grid_height; j++) {
                 let terrain_type = game_state.game_grid[i][j]["terrain"];
                 let terrain_img = loadedImages[terrain_type];
@@ -200,7 +200,7 @@
         }
 
         // iterate through array of sprite objects
-        for (let i = 0; i < game_state.number_of_creatures(); i++) {
+        for (let i = 0; i < game_state.creatures.length; i++) {
             let sprite = game_state.creatures[i];
             // move randomly if it has no likes and no fears
             if (sprite.likes === null && sprite.scared_of === null) {
@@ -210,9 +210,7 @@
                 liked_found = false;
                 loc = 0;
               //  for (let i = 0; i < game_state.creatures.length; i++) {
-                while (loc < game_state.number_of_creatures() || !liked_found) {
-                    console.log(game_state.creatures[loc]);
-                    console.log(loc);
+                while (loc < game_state.creatures.length && !liked_found) {
                     if (sprite.likes === game_state.creatures[loc].name) {
                         let x_dif = sprite.x - game_state.creatures[loc].x;
                         let y_dif = sprite.y - game_state.creatures[loc].y;
@@ -244,7 +242,7 @@
                 liked_found = false;
                 loc = 0;
                 //  for (let i = 0; i < game_state.creatures.length; i++) {
-                while (loc < game_state.number_of_creatures() || !liked_found) {
+                while (loc < game_state.creatures.length && !liked_found) {
                     if (sprite.scared_of === game_state.creatures[loc].name) {
                         let x_dif = sprite.x - game_state.creatures[loc].x;
                         let y_dif = sprite.y - game_state.creatures[loc].y;
@@ -257,7 +255,7 @@
                                 sprite.move_in_direction(2);
                                 liked_found = true;
                             }
-                        } else if (Math.abs(x_dif) < Math.abs(y_dif)) {
+                        } else if (Math.abs(x_dif) <= Math.abs(y_dif)) {
                             if (y_dif > 0) {
                                 sprite.move_in_direction(1);
                                 liked_found = true;
@@ -305,7 +303,6 @@
                     let terrain = game_state.game_grid[sprite.x][sprite.y]["terrain"];
                     let terrain_img = loadedImages[terrain];
 
-                    console.log(terrain);
                     // rerender sprite
                     items.splice(i, 1);
                     ctx.drawImage(terrain_img, sprite.x * square_size, sprite.y * square_size, square_size, square_size);
@@ -335,7 +332,7 @@
         }
 
         // render sprites from game state matrix
-        for (let i = 0; i < game_state.number_of_creatures(); i++) {
+        for (let i = 0; i < game_state.creatures.length; i++) {
             let sprite = game_state.creatures[i];
             let sprite_type = sprite.type;
             let sprite_img = loadedImages[sprite_type];
