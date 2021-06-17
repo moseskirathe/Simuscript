@@ -5,8 +5,6 @@ Characters can be customized to have different qualities. For example, character
 
 SimuScript is built for prospective game developers, providing an intuitive way to test out game ideas through the construction of draft maps and worlds, and the ability to run quick simulations to see how the game would play out.
 
-<img src="https://simuscript.000webhostapp.com/images/demo.png" width="300" height="300">
-
 ### Grammar
 PROGRAM::= GRID TERRAIN* PATH* LANDMARKPOS* CREATURE? PLAY?  
 GRID::= “Set grid size to be” (NUM, NUM)  
